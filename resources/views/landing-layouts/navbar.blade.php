@@ -9,8 +9,8 @@
                 <li class="nav-item active"><a href="index-2.html" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 {{-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> --}}
-                <li class="nav-item cta mr-md-2"><a href="new-post.html" class="nav-link">Post a Job</a></li>
-                <li class="nav-item cta cta-colored mr-md-2"><a href="job-post.html" class="nav-link">Want a Job</a></li>
+                {{-- <li class="nav-item cta mr-md-2"><a href="new-post.html" class="nav-link">Post a Job</a></li> --}}
+                {{-- <li class="nav-item cta cta-colored mr-md-2"><a href="job-post.html" class="nav-link">Want a Job</a></li> --}}
             @if (Route::has('login'))
                 @auth
                 <li class="nav-item cta mr-md-2"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
