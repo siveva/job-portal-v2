@@ -37,4 +37,28 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function redirectTo()
+    {
+        $user = auth()->user();
+
+        switch ($user->account_type) {
+            case 'admin':
+                return route('admin.dashboard');
+            case 'employer':
+                if (!$user->employer) {
+                    return route('employer.fill-up');
+                }
+                return route('employer.dashboard');
+            case 'jobseeker':
+                if (!$user->jobSeeker) {
+                    return route('jobseeker.fill-up');
+                }
+                return route('jobseeker.dashboard');
+            default:
+                return route('home');
+        }
+    }
+
+
 }

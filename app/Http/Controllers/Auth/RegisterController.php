@@ -41,6 +41,21 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    protected function redirectTo()
+    {
+        $user = auth()->user();
+
+        switch ($user->account_type) {
+            case 'employer':
+                return route('employer.fill-up');
+            case 'jobseeker':
+                return route('jobseeker.fill-up');
+            default:
+                return route('home');
+        }
+    }
+
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,6 +68,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'account_type' => ['required', 'string', 'in:employer,jobseeker']
         ]);
     }
 
@@ -68,6 +84,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'account_type' => $data['account_type']
         ]);
     }
 }

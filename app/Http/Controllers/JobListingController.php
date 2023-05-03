@@ -22,9 +22,16 @@ class JobListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function create()
+    // {
+    //     return view('job_listings.post-a-job');
+        
+    // }
+
     public function create()
     {
         return view('job_listings.post-a-job');
+        
     }
 
     /**

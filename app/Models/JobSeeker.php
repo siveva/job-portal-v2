@@ -9,6 +9,15 @@ class JobSeeker extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+    'first_name',
+    'last_name',
+    'phone_number',
+    'address',
+    'resume',
+    ];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
