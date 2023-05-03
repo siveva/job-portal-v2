@@ -23,6 +23,8 @@
  
     @include('landing-layouts.navbar')
 
+    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg.jpeg');" data-stellar-background-ratio="0.5">
+
         @yield('content')
 
     @include('landing-layouts.footer')

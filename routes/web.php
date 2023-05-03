@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\JobListingController;
+use App\Http\Controllers\JobSeekerController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +23,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/want-a-job', [JobSeekerController::class, 'index'])->name('want-a-job');
+Route::get('/post-a-job', [JobListingController::class, 'create'])->name('post-a-job')->middleware('auth');
