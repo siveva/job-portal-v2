@@ -8,7 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class JobListing extends Model
 {
     use HasFactory;
-
+    
+    protected $fillable = [
+        'employer_id',
+        'title',
+        'description',
+        'location',
+        'salary',
+        'job_type',
+        'requirements',
+        'deadline'
+    ];
+    
     public function employer()
     {
         return $this->belongsTo(Employer::class);
@@ -21,7 +32,9 @@ class JobListing extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_job_listing');
+        // return $this->belongsToMany(Category::class, 'category_job_listings');
+        return $this->belongsToMany(Category::class, 'category_job_listings')->withTimestamps();
+
     }
     
 }

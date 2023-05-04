@@ -10,18 +10,23 @@
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 {{-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> --}}
                 <li class="nav-item cta cta-colored mr-md-2"><a href="{{ route('want-a-job') }}" class="nav-link">Want a Job</a></li>
-                {{-- <li class="nav-item cta mr-md-2"><a href="{{ route('post-a-job') }}" class="nav-link">Post a Job</a></li> --}}
+                <li class="nav-item cta mr-md-2"><a href="{{ route('post-a-job') }}" class="nav-link">Post a Job</a></li>
                 @if (Route::has('login'))
-                @auth
-                <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Dashboard</a></li>
-                @else
-                <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
-                    @if (Route::has('register'))
-                        <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                    @auth
+                        @if(auth()->user()->account_type == 'employer')
+                            <li class="nav-item"><a href="{{ url('/employer/dashboard') }}" class="nav-link">Dashboard</a></li>
+                        @elseif(auth()->user()->account_type == 'jobseeker')
+                            <li class="nav-item"><a href="{{ url('/jobseeker/dashboard') }}" class="nav-link">Dashboard</a></li>
+                        @elseif(auth()->user()->account_type == 'admin')
+                            <li class="nav-item"><a href="{{ url('/admin/dashboard') }}" class="nav-link">Admin Dashboard</a></li>
+                        @endif
+                    @else
+                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                        @if (Route::has('register'))
+                            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                        @endif
                     @endif
-            @endif
-                </div>
-            @endif
+                @endif
             </ul>
         </div>
     </div>

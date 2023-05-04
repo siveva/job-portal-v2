@@ -8,9 +8,20 @@
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
                     <div class="card-body">
-                        <div class="mb-3">
-                            <a href="{{ route('job.create') }}" class="btn btn-primary">{{ __('Post a Job') }}</a>
-                        </div>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
+                        <div class="d-flex justify-content-end mb-3">
+                            <a href="{{ route('job.create') }}" class="btn btn-primary">
+                              <i class="fa fa-plus"></i> {{ __('Post a Job') }}
+                            </a>
+                          </div>
+
+                        
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -28,12 +39,12 @@
                                             <td>{{ $job->applications_count }}</td>
                                             <td>{{ $job->status }}</td>
                                             <td>
-                                                <a href="{{ route('job.edit', $job->id) }}" class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
+                                                {{-- <a href="{{ route('job.edit', $job->id) }}" class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
                                                 <form action="{{ route('job.destroy', $job->id) }}" method="post" class="d-inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @empty

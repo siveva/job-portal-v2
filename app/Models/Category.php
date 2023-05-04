@@ -12,7 +12,7 @@ class Category extends Model
     
     public function jobListings()
     {
-        return $this->belongsToMany(JobListing::class, 'category_job_listing');
+        return $this->belongsToMany(JobListing::class, 'category_job_listings');
     }
 
 }
