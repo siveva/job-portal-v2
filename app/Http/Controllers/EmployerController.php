@@ -14,12 +14,22 @@ class EmployerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
+     public function jobList()
+     {
+        //  $employer = auth()->user()->employer;
+         $employer = auth()->user();
+         if ($employer) {
+             $jobs = JobListing::where('employer_id', $employer->id)->paginate(10);
+         } else {
+             $jobs = collect();
+         }
+         return view('employers.job-list', compact('jobs'));
+     }
+     
 
     public function dashboard()
     {
-        $jobs = JobListing::where('employer_id', auth()->user()->employer->id)->paginate(10);
-        return view('employers.dashboard', compact('jobs'));
+        return view('employers.dashboard');
     }
     
 

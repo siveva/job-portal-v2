@@ -71,14 +71,17 @@ class JobController extends Controller
         $job->deadline = $validatedData['deadline'];
     
         // Get the authenticated employer and associate the job with them
-        $employer = Auth::user()->employer;
-        $employer->jobListings()->save($job);
+        // $employer = Auth::user()->employer;
+        // $employer->jobListings()->save($job);
+
+        $user = Auth::user();
+        $user->jobListings()->save($job);
     
         // Attach the selected categories to the job
         $job->categories()->attach($validatedData['categories']);
     
         // Redirect to the employer's dashboard with a success message
-        return redirect()->route('employer.dashboard')->with('success', 'Job posted successfully.');
+        return redirect()->route('employer.jobList')->with('success', 'Job posted successfully.');
     }
     
 

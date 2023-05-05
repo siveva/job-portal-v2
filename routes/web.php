@@ -23,13 +23,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/want-a-job', [JobSeekerController::class, 'index'])->name('want-a-job');
-Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job')->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job');
 
 Route::get('/employer/fill-up', [EmployerController::class, 'create'])->name('employer.fill-up');
 Route::post('/employer/store', [EmployerController::class, 'store'])->name('employer.store');
 Route::get('/employer/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
+Route::get('/employer/job/list', [EmployerController::class, 'jobList'])->name('employer.jobList');
+
 
 Route::get('/jobseeker/fill-up', [JobSeekerController::class, 'create'])->name('jobseeker.fill-up');
 Route::post('/jobseeker/store', [JobSeekerController::class, 'store'])->name('jobseeker.store');
@@ -38,4 +44,4 @@ Route::get('/jobseeker/dashboard', [JobSeekerController::class, 'dashboard'])->n
 Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
 Route::post('/job/store', [JobController::class, 'store'])->name('job.store');
 
-
+});
