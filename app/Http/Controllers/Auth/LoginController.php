@@ -56,7 +56,7 @@ class LoginController extends Controller
                 }
                 return route('jobseeker.dashboard');
             default:
-                return route('home');
+                return route('/');
         }
     }
 

@@ -51,7 +51,7 @@ class RegisterController extends Controller
             case 'jobseeker':
                 return route('jobseeker.fill-up');
             default:
-                return route('home');
+                return route('/');
         }
     }
 

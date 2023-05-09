@@ -42,7 +42,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Profile</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li> <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
@@ -77,13 +77,17 @@
                             </a>
                             <a class="nav-link" href="{{ route('employer.jobList') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Jobs
+                                Posted Jobs
                             </a>
+                            <a class="nav-link" href="">
+                                <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                                Company Overview
+                            </a>                            
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{ Auth::user()->name }}
+                        {{ Auth::user()->name }} ({{ Auth::user()->account_type }})
                     </div>
                 </nav>
             </div>

@@ -17,31 +17,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [JobController::class, 'index']);
 
 Auth::routes();
 
 
 Route::get('/want-a-job', [JobSeekerController::class, 'index'])->name('want-a-job');
 
+
 Route::middleware(['auth'])->group(function () {
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job');
-
-Route::get('/employer/fill-up', [EmployerController::class, 'create'])->name('employer.fill-up');
-Route::post('/employer/store', [EmployerController::class, 'store'])->name('employer.store');
-Route::get('/employer/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
-Route::get('/employer/job/list', [EmployerController::class, 'jobList'])->name('employer.jobList');
+// Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job');
 
 
-Route::get('/jobseeker/fill-up', [JobSeekerController::class, 'create'])->name('jobseeker.fill-up');
-Route::post('/jobseeker/store', [JobSeekerController::class, 'store'])->name('jobseeker.store');
-Route::get('/jobseeker/dashboard', [JobSeekerController::class, 'dashboard'])->name('jobseeker.dashboard');
 
-Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
-Route::post('/job/store', [JobController::class, 'store'])->name('job.store');
+});
+
+
+// middleware for employer
+Route::middleware(['auth', 'employer'])->group(function () {
+    // Routes for employer
+    Route::get('/employer/fill-up', [EmployerController::class, 'create'])->name('employer.fill-up');
+    Route::post('/employer/store', [EmployerController::class, 'store'])->name('employer.store');
+    Route::get('/employer/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
+    Route::get('/employer/job/list', [EmployerController::class, 'jobList'])->name('employer.jobList');
+
+    Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
+    Route::post('/job/store', [JobController::class, 'store'])->name('job.store');
+
+});
+
+// middleware for jobseeker
+Route::middleware(['auth', 'jobseeker'])->group(function () {
+    // Routes for jobseeker
+    Route::get('/jobseeker/fill-up', [JobSeekerController::class, 'create'])->name('jobseeker.fill-up');
+    Route::post('/jobseeker/store', [JobSeekerController::class, 'store'])->name('jobseeker.store');
+    Route::get('/jobseeker/dashboard', [JobSeekerController::class, 'dashboard'])->name('jobseeker.dashboard');
 
 });
