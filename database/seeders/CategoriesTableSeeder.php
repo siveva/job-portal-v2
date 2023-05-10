@@ -16,6 +16,22 @@ class CategoriesTableSeeder extends Seeder
     {
           // Define the categories to be seeded
           $categories = [
+            ['name' => 'Web Development'],
+            ['name' => 'Graphic Designer'],
+            ['name' => 'Multimedia'],
+            ['name' => 'Advertising'],
+            ['name' => 'Education & Training'],
+            ['name' => 'English'],
+            ['name' => 'Social Media'],
+            ['name' => 'Writing'],
+            ['name' => 'PHP Programming'],
+            ['name' => 'Project Management'],
+            ['name' => 'Finance Management'],
+            ['name' => 'Office & Admin'],
+            ['name' => 'Web Designer'],
+            ['name' => 'Customer Service'],
+            ['name' => 'Marketing & Sales'],
+            ['name' => 'Software Development'],
             ['name' => 'Technology'],
             ['name' => 'Finance'],
             ['name' => 'Marketing'],
