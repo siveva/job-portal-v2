@@ -98,7 +98,6 @@ class JobSeekerController extends Controller
      */
     public function show(JobSeeker $jobSeeker)
     {
-        //
     }
 
     /**

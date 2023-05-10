@@ -14,6 +14,11 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // public function d(){
+    //     return view('jobs.post-a-job');
+    // }
+
     public function index()
     {
         $jobs = JobListing::with('employer')->latest()->get();
@@ -92,9 +97,12 @@ class JobController extends Controller
      * @param  \App\Models\JobListing  $jobListing
      * @return \Illuminate\Http\Response
      */
-    public function show(JobListing $jobListing)
-    {
-        //
+    public function show()
+{
+        $jobId = request()->query('id');
+        $job = JobListing::find($jobId);
+        return view('jobs.job-single', compact('job'));
+
     }
 
     /**

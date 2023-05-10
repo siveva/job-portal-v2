@@ -71,10 +71,10 @@
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link" href="tables.html">
+                            {{-- <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Applications
-                            </a>
+                            </a> --}}
                             <a class="nav-link" href="{{ route('employer.jobList') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Posted Jobs

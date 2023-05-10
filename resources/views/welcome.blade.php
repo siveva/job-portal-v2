@@ -242,7 +242,7 @@
                         </div>
                     </div>
                     <div class="job-post-item-body d-block d-md-flex">
-                        <div class="mr-3"><i class="fas fa-layer-group text-success"></i> <a href="#">{{ $job->employer->employer?->company_name }}</a></div>
+                        <div class="mr-3"><i class="fas fa-layer-group text-success"></i> <a href="#">{{ $job->employer->employer ? $job->employer->employer->company_name : NULL }}</a></div>
                         <div class="mr-3"><i class="fa fa-map-marker-alt text-success mr-1"></i><span>{{ $job->location }}</span></div>
                         <div>
                             <i class="far fa-money-bill-alt text-success mr-1"></i><span>$123 - $456</span>
@@ -252,7 +252,9 @@
                 </div>
                 <div class="ml-auto d-flex">
                     <small class="d-flex align-items-center mr-1"><i class="far fa-calendar-alt text-primary me-2 mr-1"></i>Date Line: {{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}</small>
-                    <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
+                    {{-- <a href="{{ route('job-single',$job->id) }}" class="btn btn-primary py-2 mr-1">Apply Job</a> --}}
+                    <a href="{{ route('job-single', ['id' => $job->id]) }}" class="btn btn-primary py-2 mr-1">Apply Job</a>
+
                     {{-- <a href="#" class="btn btn-danger rounded-circle btn-favorite d-flex align-items-center">
                     <span class="icon-heart"></span>
                     </a> --}}

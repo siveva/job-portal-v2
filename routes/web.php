@@ -27,11 +27,15 @@ Auth::routes();
 
 Route::get('/want-a-job', [JobSeekerController::class, 'index'])->name('want-a-job');
 
+// Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job');
+
+Route::get('/job-single', [JobController::class, 'show'])->name('job-single');
+
+
 
 Route::middleware(['auth'])->group(function () {
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job');
 
 
 
