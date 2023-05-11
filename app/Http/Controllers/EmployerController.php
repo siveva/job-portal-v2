@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Employer;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class EmployerController extends Controller
         //  $employer = auth()->user()->employer;
          $employer = auth()->user();
          if ($employer) {
-             $jobs = JobListing::where('employer_id', $employer->id)->paginate(10);
+            //  $jobs = JobListing::where('employer_id', $employer->id)->paginate(10);
+            $jobs = JobListing::withCount('applications')->where('employer_id', $employer->id)->latest()->paginate(10);
          } else {
              $jobs = collect();
          }
@@ -29,7 +31,15 @@ class EmployerController extends Controller
 
     public function dashboard()
     {
-        return view('employers.dashboard');
+        $employer = auth()->user();
+        $jobCount = JobListing::where('employer_id',$employer->id)->count();
+
+        // Get the count of applicants
+        $applicantCount = Application::whereIn('job_listing_id', function ($query) use ($employer) {
+            $query->select('id')->from('job_listings')->where('employer_id', $employer->id);
+        })->count();
+        
+        return view('employers.dashboard',compact('jobCount','applicantCount'));
     }
     
 

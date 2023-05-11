@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSeekerController;
+use App\Models\JobListing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,13 @@ Route::middleware(['auth', 'employer'])->group(function () {
 
     Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
     Route::post('/job/store', [JobController::class, 'store'])->name('job.store');
+    Route::delete('/jobs/{jobListing}', [JobController::class,'destroy'])->name('job.destroy');
+    Route::get('/job/{job}/edit', [JobController::class, 'edit'])->name('job.edit');
+    Route::put('/job/update/{job}', [JobController::class, 'update'])->name('job.update');
+
+
+    // Route::resource('jobs', JobController::class);
+
 
 });
 

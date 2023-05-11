@@ -16,4 +16,6 @@ class CategoryJobListing extends Pivot
     
     protected $table='category_job_listings';
 
+    
+
 }

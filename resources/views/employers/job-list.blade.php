@@ -7,10 +7,10 @@
     <li class="breadcrumb-item active">Jobs</li>
 </ol>
 <div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        List of Job Posts
-    </div>
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            List of Job Posts
+        </div>
     <div class="card-body">
         @if (session('success'))
             <div class="alert alert-success">
@@ -28,25 +28,27 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>{{ __('Job Title') }}</th>
                         <th>{{ __('Applications') }}</th>
-                        <th>{{ __('Status') }}</th>
+                        {{-- <th>{{ __('Status') }}</th> --}}
+                        <th>{{ __('Date Posted') }}</th>
                         <th>{{ __('Actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($jobs as $job)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $job->title }}</td>
                             <td>{{ $job->applications_count }}</td>
-                            <td>{{ $job->status }}</td>
-                            <td>
-                                {{-- <a href="{{ route('job.edit', $job->id) }}" class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
-                                <form action="{{ route('job.destroy', $job->id) }}" method="post" class="d-inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
-                                </form> --}}
+                            {{-- <td>{{ $job->status }}</td> --}}
+                            <td>{{ $job->created_at->format('Y-m-d') }}</td>
+                            <td style="text-align: center;">
+                                <div class="btn-group">
+                                    <a href="{{ route('job.edit', $job->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> {{ __('Edit') }}</a>
+                                    <button type="button" class="btn btn-danger btn-sm deleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $job->id }}" data-name="{{ $job->title }}"><i class="fas fa-trash"></i> {{ __('Delete') }}</button>
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -58,10 +60,48 @@
             </table>
         </div>
 
-      
+
     </div>
 </div>
 
 
 
+        <!-- Modal to confirm job deletion -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">{{ __('Confirm Delete') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ __('Are you sure you want to delete the job: ') }}<strong><span id="jobTitle"></span></strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form method="POST" id="deleteForm">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            // Handle delete button click
+            $('.deleteBtn').on('click', function() {
+                // console.log('dal');
+                var jobId = $(this).data('id');
+                var jobTitle = $(this).data('name');
+                $('#deleteForm').attr('action', '/jobs/' + jobId);
+                $('#jobTitle').text(jobTitle);
+            });
+        </script>
+
+
 @endsection
+
+

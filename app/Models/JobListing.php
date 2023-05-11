@@ -22,7 +22,7 @@ class JobListing extends Model
     
     public function employer()
     {
-        return $this->belongsTo(User::class,'employer_id','id');
+        return $this->belongsTo(User::class,'employer_id');
     }
 
     public function applications()

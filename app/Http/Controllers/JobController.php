@@ -51,45 +51,45 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        // Validate the form data
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'location' => 'required|max:255',
-            'salary' => 'required|numeric',
-            'job_type' => 'required',
-            'requirements' => 'required',
-            'deadline' => 'required|date',
-            'categories' => 'required|array|min:1', // added categories validation rules
-            'categories.*' => 'exists:categories,id' // added categories validation rules
-        ]);
-    
-        // Create a new Job instance and fill it with the form data
-        $job = new JobListing();
-        $job->title = $validatedData['title'];
-        $job->description = $validatedData['description'];
-        $job->location = $validatedData['location'];
-        $job->salary = $validatedData['salary'];
-        $job->job_type = $validatedData['job_type'];
-        $job->requirements = $validatedData['requirements'];
-        $job->deadline = $validatedData['deadline'];
-    
-        // Get the authenticated employer and associate the job with them
-        // $employer = Auth::user()->employer;
-        // $employer->jobListings()->save($job);
+        public function store(Request $request)
+        {
+            // Validate the form data
+            $validatedData = $request->validate([
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'location' => 'required|max:255',
+                'salary' => 'required|numeric',
+                'job_type' => 'required',
+                'requirements' => 'required',
+                'deadline' => 'required|date',
+                'categories' => 'required|array|min:1', // added categories validation rules
+                'categories.*' => 'exists:categories,id' // added categories validation rules
+            ]);
+        
+            // Create a new Job instance and fill it with the form data
+            $job = new JobListing();
+            $job->title = $validatedData['title'];
+            $job->description = $validatedData['description'];
+            $job->location = $validatedData['location'];
+            $job->salary = $validatedData['salary'];
+            $job->job_type = $validatedData['job_type'];
+            $job->requirements = $validatedData['requirements'];
+            $job->deadline = $validatedData['deadline'];
+        
+            // Get the authenticated employer and associate the job with them
+            // $employer = Auth::user()->employer;
+            // $employer->jobListings()->save($job);
 
-        $user = Auth::user();
-        $user->jobListings()->save($job);
-    
-        // Attach the selected categories to the job
-        $job->categories()->attach($validatedData['categories']);
-    
-        // Redirect to the employer's dashboard with a success message
-        return redirect()->route('employer.jobList')->with('success', 'Job posted successfully.');
-    }
-    
+            $user = Auth::user();
+            $user->jobListings()->save($job);
+        
+            // Attach the selected categories to the job
+            $job->categories()->attach($validatedData['categories']);
+        
+            // Redirect to the employer's dashboard with a success message
+            return redirect()->route('employer.jobList')->with('success', 'Job posted successfully.');
+        }
+        
 
     /**
      * Display the specified resource.
@@ -111,10 +111,14 @@ class JobController extends Controller
      * @param  \App\Models\JobListing  $jobListing
      * @return \Illuminate\Http\Response
      */
-    public function edit(JobListing $jobListing)
+    public function edit(JobListing $job)
     {
-        //
+        $categories = Category::all();
+         return view('jobs.edit', compact('job','categories'));
+        
     }
+
+  
 
     /**
      * Update the specified resource in storage.
@@ -123,10 +127,48 @@ class JobController extends Controller
      * @param  \App\Models\JobListing  $jobListing
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobListing $jobListing)
+    public function update(Request $request, JobListing $job)
     {
-        //
+        // Validate the form data
+        // return $job;
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'location' => 'required|max:255',
+            'salary' => 'required|numeric',
+            'job_type' => 'required',
+            'requirements' => 'required',
+            'deadline' => 'required|date',
+            'categories' => 'required|array|min:1',
+            'categories.*' => 'exists:categories,id'
+        ]);
+
+        // return $jobListing;
+    
+        // Update the job listing with the new data
+        $job->title = $validatedData['title'];
+        $job->description = $validatedData['description'];
+        $job->location = $validatedData['location'];
+        $job->salary = $validatedData['salary'];
+        $job->job_type = $validatedData['job_type'];
+        $job->requirements = $validatedData['requirements'];
+        $job->deadline = $validatedData['deadline'];
+    
+        // Get the authenticated user's employer and associate it with the job listing
+        // $employer = Auth::user();
+        // $jobListing->employer()->associate($employer);
+    
+        // Save the updated job listing
+        $job->save();
+    
+        // Sync the categories with the provided list
+        $job->categories()->sync($validatedData['categories']);
+    
+        // Redirect to the employer's dashboard with a success message
+        return redirect()->route('employer.jobList')->with('success', 'Job updated successfully.');
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.
@@ -136,6 +178,8 @@ class JobController extends Controller
      */
     public function destroy(JobListing $jobListing)
     {
-        //
+        $jobListing->delete();
+        return redirect()->route('employer.jobList')->with('success', 'Job deleted successfully.');
+
     }
 }
