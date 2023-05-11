@@ -79,6 +79,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Matched Jobs
                             </a>
+                            <a class="nav-link" href="">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Employee Overview
+                            </a>                            
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\Employer;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployerController extends Controller
 {
@@ -115,9 +116,12 @@ class EmployerController extends Controller
      * @param  \App\Models\Employer  $employer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employer $employer)
+    public function edit()
     {
-        //
+        // return $id;
+        $user = Auth::user();
+        $employer = Employer::where('user_id',$user->id)->first();
+        return view('employers.employer-overview',compact('employer'));
     }
 
     /**
@@ -127,10 +131,34 @@ class EmployerController extends Controller
      * @param  \App\Models\Employer  $employer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employer $employer)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $employer = Employer::where('user_id', $user->id)->first();
+    
+        // Validate the input
+        $request->validate([
+            'company_name' => 'required',
+            'company_description' => 'required',
+            'company_logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Update the employer information
+        $employer->company_name = $request->input('company_name');
+        $employer->company_description = $request->input('company_description');
+    
+        if ($request->hasFile('company_logo')) {
+            // Handle uploaded company logo
+            $companyLogo = $request->file('company_logo');
+            $logoPath = $companyLogo->store('company_logos', 'public');
+            $employer->company_logo = $logoPath;
+        }
+    
+        $employer->save();
+    
+        return redirect()->back()->with('success', 'Company information updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -141,6 +142,32 @@ class UserController extends Controller
     {
         //
     }
+
+
+
+    public function updateProfile(Request $request, $id)
+    {
+        $user = Auth::user();
+        $user->name = $request->input('name');
+        $user->save();
+
+        return response()->json(['message' => 'Profile updated successfully']);
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            return response()->json(['error' => 'Current password is incorrect'], 400);
+        }
+
+        $user->password = Hash::make($request->input('new_password'));
+        $user->save();
+
+        return response()->json(['message' => 'Password changed successfully']);
+    }
+            
 
     /**
      * Remove the specified resource from storage.

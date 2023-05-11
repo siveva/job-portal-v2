@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\UserController;
 use App\Models\JobListing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,10 @@ Route::middleware(['auth', 'employer'])->group(function () {
     Route::post('/employer/store', [EmployerController::class, 'store'])->name('employer.store');
     Route::get('/employer/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
     Route::get('/employer/job/list', [EmployerController::class, 'jobList'])->name('employer.jobList');
+    Route::get('/employer/overview/edit', [EmployerController::class, 'edit'])->name('employer.overview.edit');
+    Route::put('/employer/overview/update', [EmployerController::class, 'update'])->name('employer.overview.update');
+
+
 
     Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
     Route::post('/job/store', [JobController::class, 'store'])->name('job.store');
@@ -57,9 +62,10 @@ Route::middleware(['auth', 'employer'])->group(function () {
     Route::get('/job/{job}/edit', [JobController::class, 'edit'])->name('job.edit');
     Route::put('/job/update/{job}', [JobController::class, 'update'])->name('job.update');
 
+    Route::put('/user/employer/update/{id}', [UserController::class, 'updateProfile'])->name('user.employer.update');
+    Route::put('/user/employer/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.employer.changePassword');
 
-    // Route::resource('jobs', JobController::class);
-
+    
 
 });
 
