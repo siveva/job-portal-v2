@@ -82,7 +82,7 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
     Route::get('/jobseeker/overview/edit', [JobSeekerController::class, 'edit'])->name('jobseeker.overview.edit');
     Route::put('/jobseeker/overview/update', [JobSeekerController::class, 'update'])->name('jobseeker.overview.update');
 
-    Route::put('/user/jobseeker/update/{id}', [UserController::class, 'updateProfile'])->name('user.employer.update');
-    Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.employer.changePassword');
+    Route::put('/user/jobseeker/update/{id}', [UserController::class, 'updateProfile'])->name('user.jobseeker.update');
+    Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.jobseeker.changePassword');
 
 });
