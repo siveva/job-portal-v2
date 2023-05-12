@@ -6,6 +6,7 @@ use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
 use App\Models\JobListing;
+use App\Models\JobSeeker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -77,5 +78,11 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
     Route::get('/jobseeker/fill-up', [JobSeekerController::class, 'create'])->name('jobseeker.fill-up');
     Route::post('/jobseeker/store', [JobSeekerController::class, 'store'])->name('jobseeker.store');
     Route::get('/jobseeker/dashboard', [JobSeekerController::class, 'dashboard'])->name('jobseeker.dashboard');
+
+    Route::get('/jobseeker/overview/edit', [JobSeekerController::class, 'edit'])->name('jobseeker.overview.edit');
+    Route::put('/jobseeker/overview/update', [JobSeekerController::class, 'update'])->name('jobseeker.overview.update');
+
+    Route::put('/user/jobseeker/update/{id}', [UserController::class, 'updateProfile'])->name('user.employer.update');
+    Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.employer.changePassword');
 
 });
