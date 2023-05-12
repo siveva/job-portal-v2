@@ -19,7 +19,7 @@ class EmployerFactory extends Factory
     {
         return [
             'user_id' => User::factory()
-            ->has(JobListing::factory()->count(1)->state(function(array $attributes, User $user){
+            ->has(JobListing::factory()->count(rand(5, 10))->state(function(array $attributes, User $user){
                 return [
                     'employer_id' => $user->id,
                 ];

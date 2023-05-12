@@ -4,6 +4,7 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebsiteController;
 use App\Models\JobListing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [JobController::class, 'index']);
+Route::get('/', [WebsiteController::class, 'landingPage'])->name('site.landing.page');
+Route::get('/search-jobs', [WebsiteController::class, 'searchJobs'])->name('site.search.jobs');
 
 Auth::routes();
 

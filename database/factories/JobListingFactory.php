@@ -35,7 +35,7 @@ class JobListingFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (JobListing $jobListing) {
-            $categories = Category::inRandomOrder()->limit(rand(1, 3))->get();
+            $categories = Category::inRandomOrder()->limit(rand(2, 5))->get();
             $jobListing->categories()->attach($categories);
         });
     }

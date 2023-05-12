@@ -19,6 +19,10 @@ class JobListing extends Model
         'requirements',
         'deadline'
     ];
+
+    protected $casts = [
+        'deadline'  =>  'datetime'
+    ];
     
     public function employer()
     {

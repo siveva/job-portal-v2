@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\JobListing;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
@@ -21,8 +23,8 @@ class JobController extends Controller
 
     public function index()
     {
-        $jobs = JobListing::with('employer')->latest()->get();
-        return view('welcome', compact('jobs'));
+
+        
     }
 
     /**

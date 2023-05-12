@@ -24,7 +24,7 @@ class JobSeekerController extends Controller
 
     public function index()
     {
-        $jobs = JobListing::with('employer')->latest()->get();
+        $jobs = JobListing::with('employer')->latest()->paginate(5);
         return view('jobseekers.want-a-job', compact('jobs'));
     }
 
