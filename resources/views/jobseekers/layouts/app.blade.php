@@ -79,9 +79,9 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Matched Jobs
                             </a>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('jobseeker.overview.edit') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Employee Overview
+                                Jobseeker Overview
                             </a>                            
                         </div>
                     </div>

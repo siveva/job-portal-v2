@@ -106,11 +106,12 @@ class JobSeekerController extends Controller
      * @param  \App\Models\JobSeeker  $jobSeeker
      * @return \Illuminate\Http\Response
      */
-    public function edit(JobSeeker $jobSeeker)
+    public function edit()
     {
-        //
+        $user = Auth::user();
+        $jobseeker = JobSeeker::where('user_id', $user->id)->first();
+        return view('jobseekers.jobseeker-overview', compact('jobseeker'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -118,10 +119,38 @@ class JobSeekerController extends Controller
      * @param  \App\Models\JobSeeker  $jobSeeker
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobSeeker $jobSeeker)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+
+        // Validate the input
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'resume' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        // Update the job seeker information
+        $jobSeeker->first_name = $request->input('first_name');
+        $jobSeeker->last_name = $request->input('last_name');
+        $jobSeeker->phone_number = $request->input('phone_number');
+        $jobSeeker->address = $request->input('address');
+
+        if ($request->hasFile('resume')) {
+            // Handle uploaded resume
+            $resume = $request->file('resume');
+            $resumePath = $resume->store('uploads/resumes', 'public');
+            $jobSeeker->resume = $resumePath;
+        }
+
+        $jobSeeker->save();
+
+        return redirect()->back()->with('success', 'Jobseeker information updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

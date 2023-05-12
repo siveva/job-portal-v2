@@ -124,6 +124,8 @@ class EmployerController extends Controller
         return view('employers.employer-overview',compact('employer'));
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *
