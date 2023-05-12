@@ -9,8 +9,8 @@
                 <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 {{-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> --}}
-                <li class="nav-item cta cta-colored mr-md-2"><a href="{{ route('want-a-job') }}" class="nav-link">Want a Job</a></li>
-                <li class="nav-item cta mr-md-2"><a href="{{ route('job.create') }}" class="nav-link">Post a Job</a></li>
+                {{-- <li class="nav-item cta cta-colored mr-md-2"><a href="{{ route('want-a-job') }}" class="nav-link">Want a Job</a></li>
+                <li class="nav-item cta mr-md-2"><a href="{{ route('job.create') }}" class="nav-link">Post a Job</a></li> --}}
                 @if (Route::has('login'))
                     @auth
                         @if(auth()->user()->account_type == 'employer')
@@ -21,9 +21,9 @@
                             <li class="nav-item"><a href="{{ url('/admin/dashboard') }}" class="nav-link">Admin Dashboard</a></li>
                         @endif
                     @else
-                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                        <li class="nav-item cta cta-colored mr-md-2"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                         @if (Route::has('register'))
-                            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                            <li class="nav-item cta mr-md-2"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
                         @endif
                     @endif
                 @endif
