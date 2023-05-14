@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSeekerController;
@@ -84,5 +85,13 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
 
     Route::put('/user/jobseeker/update/{id}', [UserController::class, 'updateProfile'])->name('user.jobseeker.update');
     Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.jobseeker.changePassword');
+
+});
+
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::put('/user/admin/update/{id}', [AdminController::class, 'updateProfile'])->name('user.admin.update');
+    Route::put('/user/admin/pass/update/{id}', [AdminController::class, 'changePassword'])->name('user.admin.changePassword');
+
 
 });

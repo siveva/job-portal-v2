@@ -76,24 +76,27 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="{{ route('employer.dashboard') }}">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            {{-- <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Applications
-                            </a> --}}
-                            <a class="nav-link" href="{{ route('employer.jobList') }}">
+                            <a class="nav-link" href="">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Posted Jobs
+                                Job Posts
                             </a>
-                            <a class="nav-link" href="{{ route('employer.overview.edit') }}">
+                            <a class="nav-link" href="">
                                 <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
-                                Company Overview
+                                Employers
                             </a>
-                                                    
+                            <a class="nav-link" href="">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Job Seekers
+                            </a>
+                            <a class="nav-link" href="">
+                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                Categories
+                            </a>                                                   
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -144,7 +147,7 @@
 
                 <div class="tab-content" id="profileTabContent">
                     <div class="tab-pane fade show active" id="profile-overview" role="tabpanel" aria-labelledby="profile-tab">
-                        <form id="editProfileForm" method="POST" action="{{ route('user.employer.update', Auth::user()) }}">
+                        <form id="editProfileForm" method="POST" action="{{ route('user.admin.update', Auth::user()) }}">
                             @csrf
                             @method('PUT')
 
