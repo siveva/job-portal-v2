@@ -20,7 +20,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
 
-   
+        {{-- Datatable --}}
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
 
     </head>
     <body class="sb-nav-fixed">
@@ -81,19 +84,19 @@
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('admin.job-listings.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Job Posts
                             </a>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('admin.employers.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
                                 Employers
                             </a>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('admin.job-seekers.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Job Seekers
                             </a>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('admin.categories.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Categories
                             </a>                                                   
@@ -114,7 +117,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 10uSolutions 2023</div>
+                            {{-- <div class="text-muted">Copyright &copy; 10uSolutions 2023</div> --}}
                             {{-- <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

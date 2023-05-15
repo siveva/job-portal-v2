@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\EmployerController as AdminEmployerController;
+use App\Http\Controllers\Admin\JobListingController;
+use App\Http\Controllers\Admin\JobSeekerController as AdminJobSeekerController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSeekerController;
@@ -88,10 +92,61 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
 
 });
 
-Route::middleware(['auth','admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::put('/user/admin/update/{id}', [AdminController::class, 'updateProfile'])->name('user.admin.update');
-    Route::put('/user/admin/pass/update/{id}', [AdminController::class, 'changePassword'])->name('user.admin.changePassword');
+
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::put('/user/update/{id}', [AdminController::class, 'updateProfile'])->name('user.admin.update');
+    Route::put('/user/pass/update/{id}', [AdminController::class, 'changePassword'])->name('user.admin.changePassword');
+
+    // routing for categories
+    Route::resource('categories', CategoryController::class)->names([
+
+        'index'=>'admin.categories.index',
+        // 'show'=>'admin.categories.show',
+        // 'create'=>'admin.categories.create',
+        'store'=>'admin.categories.store',
+        'edit'=>'admin.categories.edit',
+        'update'=>'admin.categories.update',
+        'destroy'=>'admin.categories.destroy',
+    ]);
+
+        // routing for job seeker
+        Route::resource('job-seekers', AdminJobSeekerController::class)->names([
+
+            'index'=>'admin.job-seekers.index',
+            // 'show'=>'admin.job-seekers.show',
+            // 'create'=>'admin.job-seekers.create',
+            'store'=>'admin.job-seekers.store',
+            'edit'=>'admin.job-seekers.edit',
+            'update'=>'admin.job-seekers.update',
+            'destroy'=>'admin.job-seekers.destroy',
+        ]);
+
+        // routing for employer
+        Route::resource('employers', AdminEmployerController::class)->names([
+
+            'index'=>'admin.employers.index',
+            // 'show'=>'admin.employers.show',
+            // 'create'=>'admin.employers.create',
+            'store'=>'admin.employers.store',
+            'edit'=>'admin.employers.edit',
+            'update'=>'admin.employers.update',
+            'destroy'=>'admin.employers.destroy',
+        ]);
+
+        // routing for job listing
+        Route::resource('job-listings', JobListingController::class)->names([
+
+            'index'=>'admin.job-listings.index',
+            // 'show'=>'admin.job-listings.show',
+            // 'create'=>'admin.job-listings.create',
+            'store'=>'admin.job-listings.store',
+            'edit'=>'admin.job-listings.edit',
+            'update'=>'admin.job-listings.update',
+            'destroy'=>'admin.job-listings.destroy',
+        ]);
+    
+
 
 
 });
