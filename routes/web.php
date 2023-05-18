@@ -73,7 +73,8 @@ Route::middleware(['auth', 'employer'])->group(function () {
     Route::put('/user/employer/update/{id}', [UserController::class, 'updateProfile'])->name('user.employer.update');
     Route::put('/user/employer/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.employer.changePassword');
 
-    
+    Route::get('/jobs/{id}/applicants', [App\Http\Controllers\JobController::class, 'showApplicants'])->name('job.applicants');
+
 
 });
 
@@ -89,7 +90,7 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
 
     Route::put('/user/jobseeker/update/{id}', [UserController::class, 'updateProfile'])->name('user.jobseeker.update');
     Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.jobseeker.changePassword');
-
+    Route::get('/applied-jobs', [JobSeekerController::class, 'appliedJobs'])->name('jobseeker.appliedJobs');
 });
 
 

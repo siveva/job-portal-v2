@@ -162,4 +162,15 @@ class JobSeekerController extends Controller
     {
         //
     }
+
+
+    public function appliedJobs()
+{
+    $user = Auth::user();
+    $appliedJobs = $user->applications()->latest()->get();
+
+    return view('jobseekers.applied_jobs', compact('appliedJobs'));
+}
+
+
 }

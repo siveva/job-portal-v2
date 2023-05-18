@@ -41,7 +41,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $job->title }}</td>
-                            <td>{{ $job->applications_count }}</td>
+                            <td>
+                                <a href="{{ route('job.applicants', $job->id) }}">
+                                    <span style="font-size: 20px;">{{ $job->applications_count }}</span>
+                                   <i class="fas fa-eye"></i></a>
+                            </td>
+                            
                             {{-- <td>{{ $job->status }}</td> --}}
                             <td>{{ $job->created_at->format('Y-m-d') }}</td>
                             <td style="text-align: center;">

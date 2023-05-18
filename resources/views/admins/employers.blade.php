@@ -100,7 +100,7 @@
                 // console.log('dal');
                 var seekerId = $(this).data('id');
                 var employerName = $(this).data('name');
-                $('#deleteForm').attr('action', '/category/' + seekerId);
+                $('#deleteForm').attr('action', '/admin/employers/' + seekerId);
                 $('#deletEmployerName').text(employerName);
             });
         </script>

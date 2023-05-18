@@ -26,8 +26,8 @@
 
         <div class="d-flex justify-content-end mb-3">
         
-            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJobSeekerModal">
-                <i class="fa fa-plus"></i> {{ __('Add Job Seeker') }}
+            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJobModalPost
+                <i class="fa fa-plus"></i> {{ __('Add Job Post') }}
             </button> --}}
             
         </div>
@@ -55,7 +55,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">{{ __('No job seekers found.') }}</td>
+                            <td colspan="4">{{ __('No job posts found.') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -78,7 +78,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ __('Are you sure you want to delete job seeker: ') }}<strong><span id="seekerName"></span></strong>?</p>
+                        <p>{{ __('Are you sure you want to delete job post: ') }}<strong><span id="deletejobTitle"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <form method="POST" id="deleteForm">
@@ -97,10 +97,10 @@
             // Handle delete button click
             $('.deleteBtn').on('click', function() {
                 // console.log('dal');
-                var seekerId = $(this).data('id');
-                var seekerName = $(this).data('name');
-                $('#deleteForm').attr('action', '/category/' + seekerId);
-                $('#seekerName').text(seekerName);
+                var jobId = $(this).data('id');
+                var jobTitle = $(this).data('name');
+                $('#deleteForm').attr('action', '/admin/job-listings/' + jobId);
+                $('#deletejobTitle').text(jobTitle);
             });
         </script>
 

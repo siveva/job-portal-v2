@@ -184,4 +184,13 @@ class JobController extends Controller
         return redirect()->route('employer.jobList')->with('success', 'Job deleted successfully.');
 
     }
+
+    public function showApplicants($id)
+    {
+        $job = JobListing::findOrFail($id);
+        $applicants = $job->applications;
+
+        return view('employers.applicants', compact('job', 'applicants'));
+    }
+
 }

@@ -81,14 +81,14 @@
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="{{ route('jobseeker.appliedJobs') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Applied Jobs
                             </a>
-                            <a class="nav-link" href="">
+                            {{-- <a class="nav-link" href="">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Matched Jobs
-                            </a>
+                            </a> --}}
                             <a class="nav-link" href="{{ route('jobseeker.overview.edit') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Jobseeker Overview
