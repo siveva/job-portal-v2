@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\JobListing;
 use App\Models\JobSeeker;
 use Illuminate\Http\Request;
@@ -16,10 +17,7 @@ class JobSeekerController extends Controller
      */
 
 
-     public function dashboard()
-    {
-        return view('jobseekers.dashboard');
-    }
+    
     
 
     public function index()
@@ -165,12 +163,23 @@ class JobSeekerController extends Controller
 
 
     public function appliedJobs()
-{
-    $user = Auth::user();
-    $appliedJobs = $user->applications()->latest()->get();
+    {
+        $user = Auth::user();
+        $appliedJobs = $user->applications()->latest()->get();
 
-    return view('jobseekers.applied_jobs', compact('appliedJobs'));
-}
+        return view('jobseekers.applied_jobs', compact('appliedJobs'));
+    }
+
+    public function dashboard(){
+        $user = Auth::user();
+        $appliedJobCount = $user->applications()->count();
+
+        $acceptedJobCount = Application::where('job_seeker_id', $user->id)
+        ->where('status', 'accepted')
+        ->count();
+
+        return view('jobseekers.dashboard',compact('appliedJobCount','acceptedJobCount'));
+    }
 
 
 }
