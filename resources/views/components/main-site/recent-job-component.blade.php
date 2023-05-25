@@ -45,9 +45,9 @@
     
                 </div>
                 <div class="ml-auto d-flex">
-                    <small class="d-flex align-items-center mr-1"><i class="far fa-calendar-alt text-primary me-2 mr-1"></i>Date Line: {{ $recentJob->deadline->format('d M, Y') }}</small>
+                    <small class="d-flex align-items-center mr-1 {{ $recentJob->deadline->isToday() || $recentJob->deadline->isPast() ? 'text-danger' : '' }}"><i class="far fa-calendar-alt text-primary me-2 mr-1"></i>Date Line: {{ $recentJob->deadline->format('d M, Y') }}</small>
                     {{-- <a href="{{ route('job-single',$job->id) }}" class="btn btn-primary py-2 mr-1">Apply Job</a> --}}
-                    <a href="{{ route('job-single', ['id' => $recentJob->id]) }}" class="btn btn-primary py-2 mr-1">Apply Job</a>
+                    <a href="{{ route('job-single', [$recentJob->id, '#jobDetails']) }}" class="btn btn-primary py-2 mr-1">Job Details</a>
 
                     {{-- <a href="#" class="btn btn-danger rounded-circle btn-favorite d-flex align-items-center">
                     <span class="icon-heart"></span>

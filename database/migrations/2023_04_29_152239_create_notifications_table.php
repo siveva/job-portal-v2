@@ -18,7 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('sender_id');
             $table->integer('receiver_id');
             $table->integer('application_id');
-            $table->text('message');
+            $table->longText('message');
             $table->boolean('read_status')->default(false);
             $table->timestamps();
         });

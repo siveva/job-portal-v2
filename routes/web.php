@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EmployerController as AdminEmployerController;
 use App\Http\Controllers\Admin\JobListingController;
 use App\Http\Controllers\Admin\JobSeekerController as AdminJobSeekerController;
+use App\Http\Controllers\Employer\JobApplicationController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSeekerController;
@@ -39,7 +40,9 @@ Route::get('/want-a-job', [JobSeekerController::class, 'index'])->name('want-a-j
 
 // Route::get('/post-a-job', [JobController::class, 'd'])->name('post-a-job');
 
-Route::get('/job-single', [JobController::class, 'show'])->name('job-single');
+Route::get('job-single/{id}', [JobController::class, 'show'])->name('job-single');
+Route::get('job/apply/{id}', [JobController::class, 'showJobApplicationForm'])->name('job-apply')->middleware(['auth', 'job.deadline']);
+Route::post('job/apply/{id}', [JobController::class, 'applyJob'])->name('job-apply.store')->middleware(['auth']);
 
 
 
@@ -73,7 +76,14 @@ Route::middleware(['auth', 'employer'])->group(function () {
     Route::put('/user/employer/update/{id}', [UserController::class, 'updateProfile'])->name('user.employer.update');
     Route::put('/user/employer/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.employer.changePassword');
 
-    Route::get('/jobs/{id}/applicants', [App\Http\Controllers\JobController::class, 'showApplicants'])->name('job.applicants');
+    // Route::get('/jobs/{id}/applicants', [App\Http\Controllers\JobController::class, 'showApplicants'])->name('job.applicants');
+
+    Route::prefix('employer')->group(function(){
+        Route::prefix('jobs')->group(function(){
+            Route::resource('applications', JobApplicationController::class);
+            Route::get('applications/download/resume/{id}', [JobApplicationController::class, 'downloadResume'])->name('applications.download.resume');
+        });
+    });
 
 
 });
@@ -91,6 +101,7 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
     Route::put('/user/jobseeker/update/{id}', [UserController::class, 'updateProfile'])->name('user.jobseeker.update');
     Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.jobseeker.changePassword');
     Route::get('/applied-jobs', [JobSeekerController::class, 'appliedJobs'])->name('jobseeker.appliedJobs');
+    Route::put('cancel/applied-jobs/{id}', [JobSeekerController::class, 'cancelJobApplication'])->name('jobseeker.cancel.application');
 });
 
 

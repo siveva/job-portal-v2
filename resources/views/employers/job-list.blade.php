@@ -25,7 +25,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-condensed table-striped data-table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -42,9 +42,10 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $job->title }}</td>
                             <td>
-                                <a href="{{ route('job.applicants', $job->id) }}">
-                                    <span style="font-size: 20px;">{{ $job->applications_count }}</span>
-                                   <i class="fas fa-eye"></i></a>
+                                
+                                <a href="{{ route('applications.index', ['id' => $job->id]) }}">
+                                    <h5><span class="badge bg-success"><i class="fas fa-eye"></i> Show <span class="badge bg-black">{{ $job->applications_count }}</span></span></h5>
+                                </a>
                             </td>
                             
                             {{-- <td>{{ $job->status }}</td> --}}
@@ -93,20 +94,22 @@
                 </div>
             </div>
         </div>
-
-
-        <script>
-            // Handle delete button click
-            $('.deleteBtn').on('click', function() {
-                // console.log('dal');
-                var jobId = $(this).data('id');
-                var jobTitle = $(this).data('name');
-                $('#deleteForm').attr('action', '/jobs/' + jobId);
-                $('#jobTitle').text(jobTitle);
-            });
-        </script>
-
-
 @endsection
-
+@push('pages-script')
+<script>
+$(document).ready(function () {
+    $('.data-table').DataTable();
+});
+</script>
+<script>
+    // Handle delete button click
+    $('.deleteBtn').on('click', function() {
+        // console.log('dal');
+        var jobId = $(this).data('id');
+        var jobTitle = $(this).data('name');
+        $('#deleteForm').attr('action', '/jobs/' + jobId);
+        $('#jobTitle').text(jobTitle);
+    });
+</script>
+@endpush
 

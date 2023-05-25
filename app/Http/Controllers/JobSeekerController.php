@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\JobListing;
 use App\Models\JobSeeker;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -164,10 +165,17 @@ class JobSeekerController extends Controller
 
     public function appliedJobs()
     {
-        $user = Auth::user();
-        $appliedJobs = $user->applications()->latest()->get();
-
+        $appliedJobs = Application::with(['jobListing'])->where('job_seeker_id', Auth::id())->get();
         return view('jobseekers.applied_jobs', compact('appliedJobs'));
+    }
+
+    public function cancelJobApplication(Request $request, $id)
+    {
+        $application = Application::find($id);
+        $application->status = 'canceled';
+        $application->save();
+
+        return redirect()->back()->with('sucess', 'Application was canceled.');
     }
 
     public function dashboard(){

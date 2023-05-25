@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'employer' => \App\Http\Middleware\EmployerMiddleware::class,
         'jobseeker' => \App\Http\Middleware\JobSeekerMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'job.deadline' => \App\Http\Middleware\CheckJobPostingIsDeadline::class,
 
     ];
 }

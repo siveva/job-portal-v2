@@ -1,24 +1,18 @@
 @extends('landing-layouts.master')
 
 @section('content')
-
-
-<div class="overlay"></div>
-<div class="container">
-  <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start" data-scrollax-parent="true">
-    <div class="col-md-8 ftco-animate text-center text-md-left mb-5" data-scrollax=" properties: { translateY: '70%' }">
-      <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-        <span class="mr-3">
-          <a href="/">Home <i class="ion-ios-arrow-forward"></i>
-          </a>
-        </span>
-        <span>Job Details</span>
-      </p>
-      <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Job Details</h1>
-    </div>
+<div class="hero-wrap js-fullheight" style="background-image: url(&quot;images/bg_2.jpg&quot;); height: 689px; background-position: 50% 186.2px;" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+  <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start" data-scrollax-parent="true" style="height: 689px;">
+  <div class="col-md-8 ftco-animate text-center text-md-left mb-5 fadeInUp ftco-animated" data-scrollax=" properties: { translateY: '70%' }" style="transform: translateZ(0px) translateY(42.9144%);">
+  <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="opacity: 0.0191002; transform: translateZ(0px) translateY(18.3919%);"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Contact</span></p>
+  <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="opacity: 0.0191002; transform: translateZ(0px) translateY(18.3919%);">Contact Us</h1>
   </div>
-</div>
-</div>
+  </div>
+  </div>
+  </div>
+
 <div class="ftco-section bg-light">
   <div class="container">
    <div class="row">
@@ -54,7 +48,7 @@
               <div class="mb-5">
                 <h4 class="mb-3">Job description</h4>
                 <p>{{ $job->description }}</p>
-                <h4 class="mb-3">Responsibility</h4>
+                {{-- <h4 class="mb-3">Responsibility</h4>
                 <p>Magna et elitr diam sed lorem. Diam diam stet erat no est est. Accusam sed lorem stet voluptua sit sit at stet consetetur, takimata at diam kasd gubergren elitr dolor</p>
                 <ul class="list-unstyled">
                     <li><i class="fa fa-angle-right text-primary me-2"></i>Dolor justo tempor duo ipsum accusam</li>
@@ -71,10 +65,10 @@
                     <li><i class="fa fa-angle-right text-primary me-2"></i>Rebum vero dolores dolores elitr</li>
                     <li><i class="fa fa-angle-right text-primary me-2"></i>Est voluptua et sanctus at sanctus erat</li>
                     <li><i class="fa fa-angle-right text-primary me-2"></i>Diam diam stet erat no est est</li>
-                </ul>
+                </ul> --}}
             </div>
 
-            <div class="">
+            {{-- <div class="">
                 <h4 class="mb-4">Apply For The Job</h4>
                 <form>
                     <div class="row g-3">
@@ -93,12 +87,12 @@
                         <div class="col-12">
                             <textarea class="form-control" rows="5" placeholder="Coverletter"></textarea>
                         </div>
-                        {{-- <div class="col-12">
+                        <div class="col-12">
                             <button class="btn btn-primary w-100" type="submit">Apply Now</button>
-                        </div> --}}
+                        </div>
                     </div>
                 </form>
-            </div>
+            </div> --}}
            
               <p class="mt-5">
                 <a href="#" class="btn btn-primary  py-2 px-4">Apply Now</a>

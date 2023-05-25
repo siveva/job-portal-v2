@@ -23,7 +23,7 @@
         <p>No applied jobs found.</p>
         @else
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-condensed data-table" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Job Title</th>
@@ -36,16 +36,31 @@
                 <tbody>
                     @foreach ($appliedJobs as $appliedJob)
                     <tr>
-                        <td>{{ $appliedJob->job->title }}</td>
-                        <td>{{ $appliedJob->job->company->name }}</td>
+                        <td>{{ $appliedJob->jobListing->title }}</td>
+                        <td>{{ $appliedJob->jobListing->employer->employer->company_name }}</td>
                         <td>{{ $appliedJob->created_at->format('M d, Y') }}</td>
-                        <td>{{ $appliedJob->status }}</td>
+                        <td class="text-center">
+                            @switch($appliedJob->status)
+                                @case('accepted')
+                                    <span class="badge bg-success">{{ Str::ucfirst($appliedJob->status) }}</span>
+                                    @break
+                                @case('rejected')
+                                    <span class="badge bg-danger">{{ Str::ucfirst($appliedJob->status) }}</span>
+                                    @break
+                                @case('canceled')
+                                    <span class="badge bg-danger">{{ Str::ucfirst($appliedJob->status) }}</span>
+                                    @break
+                                @default
+                                    <span class="badge bg-secondary">{{ Str::ucfirst($appliedJob->status) }}</span>
+                                @break
+                            @endswitch
+                        </td>
                         <td>
-                            <a href="{{ route('jobseeker.appliedJobs.show', $appliedJob) }}" class="btn btn-primary btn-sm">View</a>
-                            <form action="{{ route('jobseeker.appliedJobs.destroy', $appliedJob) }}" method="POST" class="d-inline">
+                            {{-- <a href="#" class="btn btn-primary btn-sm">View</a> --}}
+                            <form action="{{ route('jobseeker.cancel.application', $appliedJob->id) }}" method="POST" class="d-inline">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this applied job?')">Delete</button>
+                                @method('PUT')
+                                <button type="submit" class="btn btn-danger btn-sm @if($appliedJob->status === "accepted" || $appliedJob->status === "canceled") disabled @endif" onclick="return confirm('Are you sure you want to cancel this application?')">Cancel</button>
                             </form>
                         </td>
                     </tr>
@@ -57,5 +72,11 @@
 
     </div>
 </div>
-
 @endsection
+@push('pages-script')
+    <script>
+    $(document).ready(function () {
+        $('.data-table').DataTable();
+    });
+    </script>
+@endpush

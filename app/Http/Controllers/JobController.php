@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Category;
 use App\Models\JobListing;
 use App\Models\User;
@@ -99,11 +100,10 @@ class JobController extends Controller
      * @param  \App\Models\JobListing  $jobListing
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
 {
-        $jobId = request()->query('id');
-        $job = JobListing::find($jobId);
-        return view('jobs.job-single', compact('job'));
+        $job = JobListing::findOrFail($id);
+        return view('jobs.job-single-2', compact('job'));
 
     }
 
@@ -185,12 +185,32 @@ class JobController extends Controller
 
     }
 
-    public function showApplicants($id)
+    public function showJobApplicationForm($id)
     {
         $job = JobListing::findOrFail($id);
-        $applicants = $job->applications;
-
-        return view('employers.applicants', compact('job', 'applicants'));
+        return view('jobs.job-apply', compact('job'));
     }
 
+    public function applyJob(Request $request, $id)
+    {
+        // $this->validate($request,[
+        //     'resume' => 'required|mimes:pdf,doc,docx|max:2048',
+        //     'letter'    =>  'required|min:5'
+        // ]);
+
+        $job = JobListing::find($id);
+
+        if ($request->file('resume')->isValid()) {
+            $path = $request->file('resume')->store('resumes');
+        }
+
+        $job->applications()->create([
+            'job_seeker_id'    =>  Auth::id(),
+            'cover_letter'  =>  $request->letter,
+            'resume'  =>  $path,
+            'status'    => 'pending'
+        ]);
+
+        return redirect()->route('jobseeker.appliedJobs')->with('success', 'Application was successfully submitted');
+    }
 }

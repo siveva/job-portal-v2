@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Category;
 use App\Models\JobListing;
 use App\Models\User;
+use App\Services\JobApplicationService;
+use App\Interfaces\JobApplicationServiceInterface;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(JobApplicationServiceInterface::class, JobApplicationService::class);
     }
 
     /**
@@ -33,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
             'landing-layouts.master',
             'search-result',
             'welcome',
+            'jobs.job-single-2',
+            'jobs.job-apply',
         ],     
         function($view){
             $view->with('categories', Category::withCount(['jobListings'])->get());
