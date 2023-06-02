@@ -3,21 +3,22 @@
 namespace App\Services;
 
 use App\Interfaces\JobApplicationServiceInterface;
+use App\Interfaces\SmsServiceInterface;
 use App\Models\Application;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationNotificationMail;
 use Illuminate\Support\Facades\Auth;
-use App\Services\SmsService;
 
 class JobApplicationService implements JobApplicationServiceInterface
 {
     private $smsService;
 
-    public function __construct(SmsService $smsService)
+    public function __construct(SmsServiceInterface $smsService)
     {
         $this->smsService = $smsService;
     }
+
     public function updateApplicationStatus($id, array $data)
     {
         $application = Application::find($id);
@@ -47,7 +48,7 @@ class JobApplicationService implements JobApplicationServiceInterface
             $smsNotificationMessage = 'Your application for ' . $application->jobListing->title . 'was rejected';
         }
 
-        $this->smsService->sendSms($application->jobSeeker->phone_number, $smsNotificationMessage);
+        $this->smsService->sendSms('$application->jobSeeker->phone_number', $smsNotificationMessage);
         $this->sendNotification($application, $emailSubject, $emailNotificationMessage);
 
         $application->save();
