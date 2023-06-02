@@ -19,7 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->integer('job_listing_id');
             $table->text('cover_letter')->nullable();
             $table->string('resume')->nullable();
-            $table->enum('status', ['pending', 'accepted', 'rejected', 'canceled'])->default('pending');
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'canceled' ,'scheduled_for_interview'])->default('pending');
             $table->longText('message')->nullable();
             $table->timestamps();
         });

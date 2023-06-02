@@ -8,26 +8,47 @@ use App\Models\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationNotificationMail;
 use Illuminate\Support\Facades\Auth;
+use App\Services\SmsService;
 
 class JobApplicationService implements JobApplicationServiceInterface
 {
-    public function updateApplicationStatus($id, $type)
+    private $smsService;
+
+    public function __construct(SmsService $smsService)
+    {
+        $this->smsService = $smsService;
+    }
+    public function updateApplicationStatus($id, array $data)
     {
         $application = Application::find($id);
         $statusMessage = '';
+        $type = $data['type'];
 
         if ($type === 'accept') {
             $application->status = 'accepted';
+
             $statusMessage = 'Application was successfully accepted';
-            $notificationMessage = $this->generateAcceptanceMessage($application);
-            $this->sendNotification($application, 'Application Accepted', $notificationMessage);
+            $emailNotificationMessage = $this->generateAcceptanceMessage($application);
+            $emailSubject = 'Accepted Application';
+            $smsNotificationMessage = 'Your application for ' . $application->jobListing->title . 'was accepted';
+        } elseif($type === "schedule_for_interview") {
+            $application->status = 'scheduled_for_interview';
+
+            $statusMessage = 'Application was scheduled successfully';
+            $emailNotificationMessage = $data['message'];
+            $emailSubject = 'Scheduled for Interview Application';
+            $smsNotificationMessage = $data['message'];
         } elseif ($type === 'reject') {
             $application->status = 'rejected';
-            $statusMessage = 'Application was rejected';
-            $notificationMessage = $this->generateRejectionMessage($application);
 
-            $this->sendNotification($application, 'Application Rejected', $notificationMessage);
+            $statusMessage = 'Application was rejected';
+            $emailNotificationMessage = $this->generateRejectionMessage($application);
+            $emailSubject = 'Rejected Application';
+            $smsNotificationMessage = 'Your application for ' . $application->jobListing->title . 'was rejected';
         }
+
+        $this->smsService->sendSms($application->jobSeeker->phone_number, $smsNotificationMessage);
+        $this->sendNotification($application, $emailSubject, $emailNotificationMessage);
 
         $application->save();
 

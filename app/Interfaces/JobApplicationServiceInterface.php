@@ -4,5 +4,5 @@ namespace App\Interfaces;
 
 interface JobApplicationServiceInterface
 {
-    public function updateApplicationStatus($id, $type);
+    public function updateApplicationStatus($id, array $data);
 }

@@ -60,7 +60,8 @@
             <div class="p-3">
                 @if($application->status === "pending")
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#popupModalRejectApplication">Reject Application</button>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#popupModalAcceptApplication">Accept Application</button> 
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#popupModalAcceptApplication">Accept Application</button> 
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#popupModalScheduleInterviewApplication">Schedule for Interview</button> 
                 @else
                     @if($application->status === "accepted")
                         <h5><span class="badge rounded-pill bg-success">Application Status: {{ Str::ucfirst($application->status) }} <i class="fa fa-check" aria-hidden="true"></i></span></h5>   
@@ -76,14 +77,20 @@
                         @method('PUT')
                     </form>
                 </x-confirmation-modal>
+                <x-confirmation-modal modal-id="popupModalScheduleInterviewApplication" title="Confirm Schedule for Interview Action" message="Are you sure you want to schedule for interview {{ $application->jobSeeker->name }}?" confirm-text="Yes, Schedule for Interview">
+                    <form action="{{ route('applications.update', [$application->id, 'type' =>  'schedule_for_interview']) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                          <label for="message" class="form-label mt-3 fw-bold">Message</label>
+                          <textarea class="form-control" rows="10" name="message" id="message"></textarea>
+                        </div>
+                    </form>
+                </x-confirmation-modal>
                 <x-confirmation-modal modal-id="popupModalRejectApplication" title="Confirm Application Action" message="Are you sure you want to reject {{ $application->jobSeeker->name }} application?" confirm-text="Yes, Reject">
                     <form action="{{ route('applications.update', [$application->id, 'type' =>  'reject']) }}" method="POST" class="d-inline">
                         @csrf
                         @method('PUT')
-                        {{-- <div class="form-group">
-                            <label>Remarks</label>
-                            <textarea class="form-control" rows="10" name="message"></textarea>
-                        </div> --}}
                     </form>
                 </x-confirmation-modal>
             </div>

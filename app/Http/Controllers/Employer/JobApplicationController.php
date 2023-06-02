@@ -86,7 +86,7 @@ class JobApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $result = $this->jobApplicationService->updateApplicationStatus($id, $request->type);
+        $result = $this->jobApplicationService->updateApplicationStatus($id, $request->all());
         $application = $result['application'];
         $statusMessage = $result['statusMessage'];
         

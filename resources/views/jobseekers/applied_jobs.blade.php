@@ -44,6 +44,9 @@
                                 @case('accepted')
                                     <span class="badge bg-success">{{ Str::ucfirst($appliedJob->status) }}</span>
                                     @break
+                                @case('scheduled_for_interview')
+                                    <span class="badge bg-success">{{ Str::title(str_replace('_', ' ', $appliedJob->status)) }}</span>
+                                    @break
                                 @case('rejected')
                                     <span class="badge bg-danger">{{ Str::ucfirst($appliedJob->status) }}</span>
                                     @break

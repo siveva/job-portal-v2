@@ -7,6 +7,8 @@ use App\Models\JobListing;
 use App\Models\User;
 use App\Services\JobApplicationService;
 use App\Interfaces\JobApplicationServiceInterface;
+use App\Interfaces\SmsServiceInterface;
+use App\Services\SmsService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(JobApplicationServiceInterface::class, JobApplicationService::class);
+        $this->app->bind(SmsServiceInterface::class, SmsService::class);
     }
 
     /**

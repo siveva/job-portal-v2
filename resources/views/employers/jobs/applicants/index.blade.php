@@ -37,6 +37,9 @@
                                     @case('accepted')
                                         <span class="badge bg-success">{{ ucfirst($jobApplication->status) }}</span>
                                         @break
+                                    @case('scheduled_for_interview')
+                                        <span class="badge bg-success">Scheduled for Interview</span>
+                                        @break
                                     @case('rejected')
                                         <span class="badge bg-danger">{{ ucfirst($jobApplication->status) }}</span>
                                         @break
@@ -48,14 +51,25 @@
                                 @endswitch
                             </td>
                             <td>
-                                    <a href="{{ route('applications.show', $jobApplication->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a>                                     
+                                    <a href="{{ route('applications.show', $jobApplication->id) }}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View</a>                                     
                                     @if($jobApplication->status == "pending")
                                         <button type="button" class="btn btn-success btn-sm modal-trigger-button" data-bs-toggle="modal" data-bs-target="#popupModalAcceptApplication{{ $jobApplication->id }}"><i class="fas fa-check"></i> Accept</button>
+                                        <button type="button" class="btn btn-primary btn-sm modal-trigger-button" data-bs-toggle="modal" data-bs-target="#popupModalScheduleForInterviewApplication{{ $jobApplication->id }}"><i class="fas fa-clock"></i> Schedule for Interview</button>
                                         <button type="button" class="btn btn-danger btn-sm modal-trigger-button" data-bs-toggle="modal" data-bs-target="#popupModalRejectApplication{{ $jobApplication->id }}"><i class="fas fa-times"></i> Reject</button>
                                         <x-confirmation-modal modal-id="popupModalAcceptApplication{{ $jobApplication->id }}" title="Confirm Application Action" message="Are you sure you want to accept {{ $jobApplication->jobSeeker->name }} application?" confirm-text="Yes, Accept">
                                             <form action="{{ route('applications.update', [$jobApplication->id, 'type' =>  'accept']) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('PUT')
+                                            </form>
+                                        </x-confirmation-modal>
+                                        <x-confirmation-modal modal-id="popupModalScheduleForInterviewApplication{{ $jobApplication->id }}" title="Confirm Application Action" message="Are you sure you want to schedule for interview {{ $jobApplication->jobSeeker->name }}?" confirm-text="Yes, Schedule for Interview">
+                                            <form action="{{ route('applications.update', [$jobApplication->id, 'type' =>  'schedule_for_interview']) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-3">
+                                                    <label for="message" class="form-label mt-3 fw-bold">Message</label>
+                                                    <textarea class="form-control" rows="10" name="message" id="message"></textarea>
+                                                  </div>
                                             </form>
                                         </x-confirmation-modal>
                                         <x-confirmation-modal modal-id="popupModalRejectApplication{{ $jobApplication->id }}" title="Confirm Application Action" message="Are you sure you want to reject {{ $jobApplication->jobSeeker->name }} application?" confirm-text="Yes, Reject">
