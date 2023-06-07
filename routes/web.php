@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\JobSeekerController as AdminJobSeekerController;
 use App\Http\Controllers\Employer\JobApplicationController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobSeeker\NotificationController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
@@ -102,6 +103,8 @@ Route::middleware(['auth', 'jobseeker'])->group(function () {
     Route::put('/user/jobseeker/pass/update/{id}', [UserController::class, 'changePassword'])->name('user.jobseeker.changePassword');
     Route::get('/applied-jobs', [JobSeekerController::class, 'appliedJobs'])->name('jobseeker.appliedJobs');
     Route::put('cancel/applied-jobs/{id}', [JobSeekerController::class, 'cancelJobApplication'])->name('jobseeker.cancel.application');
+
+    Route::post('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead']);
 });
 
 

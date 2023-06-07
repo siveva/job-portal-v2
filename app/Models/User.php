@@ -58,5 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Application::class,'job_seeker_id','id');
 
     }
+    
+    
+    public function unreadNotifications()
+    {
+        return $this->hasMany(Notification::class, 'receiver_id')->where('read_status', false);
+    }
 
 }

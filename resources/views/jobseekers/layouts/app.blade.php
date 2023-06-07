@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Surigao del Sur - Job Portal</title>
         {{-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> --}}
         <link href="{{ asset('startboostrap/css/styles.css') }}" rel="stylesheet" />
@@ -20,6 +21,39 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
+        <style>
+            .badge {
+                position: relative;
+            }
+            
+            .badge .badge-counter {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                padding: 4px 8px;
+                border-radius: 50%;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+            }
+            
+            .messages {
+                display: none;
+                position: absolute;
+                top: 30px;
+                right: 0;
+                padding: 10px;
+                width: 200px;
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+            
+            .messages .message {
+                margin-bottom: 10px;
+            }
+        </style>
            
 
     </head>
@@ -48,6 +82,45 @@
             @endif
         @else
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                {{-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li> --}}
+                {{-- <li class="nav-item"><a class="nav-link" href="#">Link</a></li> --}}
+               
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <span class="badge bg-danger">3</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                        <li><a class="dropdown-item" href="#">Notification 1</a></li>
+                        <li><a class="dropdown-item" href="#">Notification 2</a></li>
+                        <li><a class="dropdown-item" href="#">Notification 3</a></li>
+                    </ul>
+                </li> --}}
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <span class="badge bg-danger" id="notificationBadge">{{ $unreadNotificationsCount }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                        @foreach ($notifications as $notification)
+                            <li>
+                                @php
+                                    $message = json_decode($notification['message'], true);
+                                    $formattedBody = nl2br($message['body']);
+                                @endphp
+                                <a class="dropdown-item{{ $notification['read_status'] ? ' read' : '' }}"
+                                    href="#"
+                                    data-notification-id="{{ $notification['id'] }}">
+                                    <strong>{{ $message['subject'] }}</strong>
+                                    <p>{!! $formattedBody !!}</p>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+                
+                  
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -234,7 +307,45 @@
         {{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> --}}
         {{-- <script src="js/datatables-simple-demo.js"></script> --}}
 
+        <script>
+          
+          $(document).ready(function() {
+            // Get the CSRF token value
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
+            $('.dropdown-item').click(function(e) {
+                e.preventDefault();
+
+                var notificationId = $(this).data('notification-id');
+                var clickedItem = $(this); // Store the clicked dropdown item
+
+                // Make an AJAX request to update the read status
+                $.ajax({
+                    url: '/notifications/' + notificationId + '/mark-as-read',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the request headers
+                    },
+                    success: function(response) {
+                        // Update the UI to mark the notification as read
+                        clickedItem.addClass('read');
+
+                        // Access the updated notification data
+                        var updatedNotification = response.notification;
+
+                        // Do something with the updated notification data
+                        console.log(updatedNotification);
+                        
+                        // Reload the page
+                        location.reload();
+                    }
+                });
+            });
+        });
+
+
+        </script>
+        
         
         <script>
             // Listen for form submission
@@ -277,7 +388,10 @@
 
         </script>
 
+        
+  
         @stack('pages-script')
+        
 
     </body>
 </html>

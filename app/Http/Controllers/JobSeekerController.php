@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\JobListing;
 use App\Models\JobSeeker;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,8 @@ class JobSeekerController extends Controller
 
     public function index()
     {
+
+
         $jobs = JobListing::with('employer')->latest()->paginate(5);
         return view('jobseekers.want-a-job', compact('jobs'));
     }
@@ -40,7 +43,15 @@ class JobSeekerController extends Controller
         // }
         // return view('jobseeker.fill-up');
 
-        return view('jobseekers.fill-up');
+        $user = Auth::user();
+        // Retrieve the unread notifications count
+        $unreadNotificationsCount = $user->unreadNotifications()->count();
+
+        // $notifications = $user->notifications()->orderBy('created_at', 'desc')->take(5)->get();
+        $notifications = Notification::where('receiver_id', $user->id)->get()->toArray();
+
+
+        return view('jobseekers.fill-up',compact('unreadNotificationsCount','notifications'));
 
 
     }
@@ -108,8 +119,15 @@ class JobSeekerController extends Controller
     public function edit()
     {
         $user = Auth::user();
+
+            // Retrieve the unread notifications count
+            $unreadNotificationsCount = $user->unreadNotifications()->count();
+
+            // $notifications = $user->notifications()->orderBy('created_at', 'desc')->take(5)->get();
+            $notifications = Notification::where('receiver_id', $user->id)->get()->toArray();
+
         $jobseeker = JobSeeker::where('user_id', $user->id)->first();
-        return view('jobseekers.jobseeker-overview', compact('jobseeker'));
+        return view('jobseekers.jobseeker-overview', compact('jobseeker','unreadNotificationsCount','notifications'));
     }
     /**
      * Update the specified resource in storage.
@@ -122,7 +140,11 @@ class JobSeekerController extends Controller
     {
         $user = Auth::user();
         $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
-
+    
+        if (!$jobSeeker) {
+            abort(404); // or handle the case when the jobseeker is not found
+        }
+    
         // Validate the input
         $request->validate([
             'first_name' => 'required',
@@ -131,25 +153,25 @@ class JobSeekerController extends Controller
             'address' => 'required',
             'resume' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
-
+    
         // Update the job seeker information
         $jobSeeker->first_name = $request->input('first_name');
         $jobSeeker->last_name = $request->input('last_name');
         $jobSeeker->phone_number = $request->input('phone_number');
         $jobSeeker->address = $request->input('address');
-
+    
         if ($request->hasFile('resume')) {
             // Handle uploaded resume
             $resume = $request->file('resume');
             $resumePath = $resume->store('uploads/resumes', 'public');
             $jobSeeker->resume = $resumePath;
         }
-
+    
         $jobSeeker->save();
-
+    
         return redirect()->back()->with('success', 'Jobseeker information updated successfully.');
     }
-
+    
 
     /**
      * Remove the specified resource from storage.
@@ -166,7 +188,16 @@ class JobSeekerController extends Controller
     public function appliedJobs()
     {
         $appliedJobs = Application::with(['jobListing'])->where('job_seeker_id', Auth::id())->get();
-        return view('jobseekers.applied_jobs', compact('appliedJobs'));
+     
+              $user = Auth::user();
+              // Retrieve the unread notifications count
+              $unreadNotificationsCount = $user->unreadNotifications()->count();
+
+              // $notifications = $user->notifications()->orderBy('created_at', 'desc')->take(5)->get();
+              $notifications = Notification::where('receiver_id', $user->id)->get()->toArray();
+      
+          
+        return view('jobseekers.applied_jobs', compact('appliedJobs','unreadNotificationsCount','notifications'));
     }
 
     public function cancelJobApplication(Request $request, $id)
@@ -186,8 +217,17 @@ class JobSeekerController extends Controller
         ->where('status', 'accepted')
         ->count();
 
-        return view('jobseekers.dashboard',compact('appliedJobCount','acceptedJobCount'));
+          // Retrieve the unread notifications count
+        $unreadNotificationsCount = $user->unreadNotifications()->count();
+
+        // $notifications = $user->notifications()->orderBy('created_at', 'desc')->take(5)->get();
+        $notifications = Notification::where('receiver_id', $user->id)->get()->toArray();
+
+        return view('jobseekers.dashboard', compact('appliedJobCount', 'acceptedJobCount', 'unreadNotificationsCount', 'notifications'));
+        
     }
+
+    
 
 
 }

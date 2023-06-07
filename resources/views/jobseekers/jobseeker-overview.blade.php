@@ -26,7 +26,7 @@
                 <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                 <div class="col-md-6">
-                    <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $jobseeker->first_name }}" required autocomplete="first_name" autofocus>
+                    <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $jobseeker->first_name ?? '' }}" required autocomplete="first_name" autofocus>
 
                     @error('first_name')
                         <span class="invalid-feedback" role="alert">
@@ -40,7 +40,7 @@
                 <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                 <div class="col-md-6">
-                    <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ $jobseeker->last_name }}" required autocomplete="last_name" autofocus>
+                    <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ $jobseeker->last_name ?? ''}}" required autocomplete="last_name" autofocus>
 
                     @error('last_name')
                         <span class="invalid-feedback" role="alert">
@@ -54,7 +54,7 @@
                 <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                 <div class="col-md-6">
-                    <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ $jobseeker->phone_number }}" required autocomplete="phone_number">
+                    <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ $jobseeker->phone_number ?? ''}}" required autocomplete="phone_number">
 
                     @error('phone_number')
                         <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
                 <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                 <div class="col-md-6">
-                    <textarea id="address" class="form-control @error('address') is-invalid @enderror" name="address" required autocomplete="address">{{ $jobseeker->address }}</textarea>
+                    <textarea id="address" class="form-control @error('address') is-invalid @enderror" name="address" required autocomplete="address">{{ $jobseeker->address ?? ''}}</textarea>
 
                     @error('address')
                         <span class="invalid-feedback" role="alert">
