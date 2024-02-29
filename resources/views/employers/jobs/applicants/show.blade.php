@@ -137,6 +137,63 @@
                         <a href="{{ route('applications.download.resume', $application->id) }}" class="btn btn-primary btn-sm">Download Resume<i class="fa fa-download" aria-hidden="true"></i></a>
                     </div>
                 </div>
+                @switch($application->education)
+                                    @case('0')
+                                        @php $education = "Elementary level or graduate"; @endphp
+                                        @break
+                                    @case('1')
+                                        @php $education = "Secondary level or graduate"; @endphp
+                                        @break
+                                    @case('2')
+                                        @php $education = "Vocational Course Graduate"; @endphp
+                                        @break
+                                    @case('3')
+                                        @php $education = "College level"; @endphp
+                                        @break
+                                    @case('4')
+                                        @php $education = "Graduate of any IT related course"; @endphp
+                                        @break
+                                    @case('5')
+                                        @php $education = "Graduate of any Arts or Sciences related course"; @endphp
+                                        @break
+                                    @case('6')
+                                        @php $education = "Graduate of any Engineering related course"; @endphp
+                                        @break
+                                    @case('7')
+                                        @php $education = "Graduate of any Business related course"; @endphp
+                                        @break
+                                    @case('8')
+                                        @php $education = "Graduate of any Medicine related course"; @endphp
+                                        @break
+                                    @case('9')
+                                        @php $education = "Graduate of any Education related course"; @endphp
+                                        @break                    
+                                @endswitch
+                                @switch($application->yrOfexp)
+                                    @case('0')
+                                        @php $exp = "None"; @endphp
+                                        @break
+                                    @case('1')
+                                        @php $exp = "1-6 mos"; @endphp
+                                        @break
+                                    @case('2')
+                                        @php $exp = "7-12 mos"; @endphp
+                                        @break
+                                    @case('3')
+                                        @php $exp = "1-2 yrs"; @endphp
+                                        @break
+                                    @case('4')
+                                        @php $exp = "2 yrs and above"; @endphp
+                                        @break    
+                                @endswitch
+                <div class="row mt-2">
+                    <label><b>Educational Attainment</b></label>
+                    <p>* {{ $education }}</p>
+                </div>
+                <div class="row mt-2">
+                    <label><b>Range of Relevant Experience</b></label>
+                    <p>* {{ $exp }}</p>
+                </div>
                 <div class="row mt-2">
                     <div class="col-md-12">
                         <textarea class="form-control" rows="10" cols="10" readonly>{{ $application->cover_letter }}</textarea>
