@@ -59,6 +59,34 @@
                       <input type="file" name="resume" id="resume" class="form-control" aria-describedby="helpId">
                     </div>
                     <div class="form-group">
+                <label for="education">Educational Attainment</label>
+                    <select id="education" class="form-control" name="education" required>
+                        <option></option>
+                        <option value="0">Elementary level or graduate</option>
+                        <option value="1">Secondary level or graduate</option>
+                        <option value="2">Vocational Course Graduate</option>
+                        <option value="3">College level</option>
+                        <option value="4">Graduate of any IT related course</option>
+                        <option value="5">Graduate of any Arts or Sciences related course</option>
+                        <option value="6">Graduate of any Engineering related course</option>
+                        <option value="7">Graduate of any Business related course</option>
+                        <option value="8">Graduate of any Medicine related course</option>
+                        <option value="9">Graduate of any Education related course</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="yrOfexp">{{ __('Range of relevant experience') }}</label>
+                    <select id="yrOfexp" class="form-control" name="yrOfexp" required autocomplete="job_type">
+                        <option></option>
+                        <option value="0">None</option>
+                        <option value="1">1-6 mos</option>
+                        <option value="2">7-12 mos</option>
+                        <option value="3">1-2 yrs</option>
+                        <option value="4">2 yrs and above</option>
+                    </select>
+            </div>
+                    <div class="form-group">
                         <label for="">Cover Letter</label>
                         <textarea class="form-control" name="letter" id="letter" rows="10"></textarea>
                     </div>

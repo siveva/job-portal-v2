@@ -8,7 +8,7 @@
         <meta name="author" content="" />
         <title>Surigao del Sur - Job Portal</title>
         {{-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> --}}
-        <link href="{{ asset('startboostrap/css/styles.css') }}" rel="stylesheet" />
+        <link href="{{ asset('/public/startboostrap/css/styles.css')}}" rel="stylesheet" />
         @stack('pages-css')
 
 
@@ -222,7 +222,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('startboostrap/js/scripts.js') }}"></script>
+        <script src="{{ asset('/public/startboostrap/js/scripts.js')}}"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script> --}}

@@ -12,14 +12,14 @@
 
 
     <!-- Scripts -->
-    <script src="{{ asset('ex/js/app.js') }}" defer></script>
+    <script src="{{ asset('/public/ex/js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('ex/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/public/ex/css/app.css') }}" rel="stylesheet">
     
     
     

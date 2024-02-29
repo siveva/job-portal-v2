@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="mt-4">{{ $job->title }} Applicants</h1>
+<h1 class="mt-4">{{ $job->title }} <span style="font-style: italic;color: blue;">Shortlisted</span> Applicants</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('employer.jobList') }}">Jobs</a></li>
     <li class="breadcrumb-item active">{{ $job->title }} Applicants</li>
@@ -13,6 +13,7 @@
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
         List of Applicants
+        <span style="float: right"><a href="{{ route('applications.unQualified', ['id' => $_GET['id']]) }}">View Unshortlisted Applicants</a></span>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -87,7 +88,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">No applicants found.</td>
+                            <td>No applicants found.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     @endforelse
                 </tbody>

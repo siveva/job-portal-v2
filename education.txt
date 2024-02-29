@@ -1,0 +1,132 @@
+<div class="form-group row mb-3">
+                <label for="education" class="col-md-4 col-form-label text-md-right">{{ __('Education') }}</label>
+            
+                <div class="col-md-6">
+                    <select id="education" class="form-control @error('education') is-invalid @enderror" name="education[]" multiple required>
+                        <option>Bachelor of Arts in History</option>
+                        <option>Bachelor of Arts in Philosophy</option>
+                        <option>Bachelor of Fine Arts Major in Industrial Design</option>
+                        <option>Bachelor of Fine Arts Major in Painting</option>
+                        <option>Bachelor of Fine Arts Major in Sculpture </option>
+                        <option>Bachelor of Fine Arts Major in Visual Communication</option>
+                        <option>Bachelor of Arts in Economics</option>
+                        <option>Bachelor of Science in Economics</option>
+                        <option>Bachelor of Arts in Psychology</option>
+                        <option>Bachelor of Science in Psychology</option>
+                        <option>Bachelor of Science in Criminology</option>
+                        <option>Bachelor of Arts in Political Science</option>
+                        <option>Bachelor of Arts in English</option>
+                        <option>Bachelor of Arts in Linguistics</option>
+                        <option>Bachelor of Arts in Literature</option>
+                        <option>Bachelor of Arts in Anthropology</option>
+                        
+                        <option>Bachelor of Arts in Sociology</option>
+                        <option>Bachelor of Arts in Filipino</option>
+                        <option>Bachelor of Science in Forensic Science </option>
+                        <option>Bachelor of Arts in Islamic Studies</option>
+                        <option>Bachelor of Science in Environmental Science</option>
+                        <option>Bachelor of Science in Forestry</option>
+                        <option>Bachelor of Science in Fisheries</option>
+                        <option>Bachelor of Science in Geology</option>
+                        <option>Bachelor of Science in Biology</option>
+                        <option>Bachelor of Science in Molecular Biology</option>
+                        <option>Bachelor of Science in Physics</option>
+                        <option>Bachelor of Science in Applied Physics</option>
+                        <option>Bachelor of Science in Chemistry</option>
+                        <option>Bachelor of Science in Computer Science</option>
+                        <option>Bachelor of Science in Information Technology</option>
+                        <option>Bachelor of Science in Information Systems</option>
+
+                        <option>Bachelor of Science in Mathematics</option>
+                        <option>Bachelor of Science in Applied Mathematics</option>
+                        <option>Bachelor of Science in Statistics</option>
+                        <option>Bachelor of Science in Agriculture</option>
+                        <option>Bachelor of Science in Agribusiness</option>
+                        <option>Bachelor of Science in Agroforestry</option>
+                        <option>Bachelor of Science in Architecture</option>
+                        <option>Bachelor in Landscape Architecture</option>
+                        <option>Bachelor of Science in Interior Design</option>
+                        <option>Bachelor of Science in Accountancy</option>
+                        <option>Bachelor of Science in Accounting Technology</option>
+                        <option>Bachelor of Science in Business Administration</option>
+                        <option>Bachelor of Science in Business Administration Major in Business Economics</option>
+                        <option>Bachelor of Science in Business Administration Major in Financial Management</option>
+                        <option>Bachelor of Science in Business Administration Major in Human Resource Development</option>
+                        <option>Bachelor of Science in Business Administration Major in Marketing Management</option>
+
+                        <option>Bachelor of Science in Business Administration Major in Operations Management</option>
+                        <option>Bachelor of Science in Hotel and Restaurant Management</option>
+                        <option>Bachelor of Science in Entrepreneurship</option>
+                        <option>Bachelor of Science in Office Administration</option>
+                        <option>Bachelor of Science in Real Estate Management</option>
+                        <option>Bachelor of Science in Tourism Management</option>
+                        <option>Bachelor of Science in Medical Technology</option>
+                        <option>Bachelor of Science in Midwifery</option>
+                        <option>Bachelor of Science in Nursing</option>
+                        <option>Bachelor of Science in Occupational Therapy</option>
+                        <option>Bachelor of Science in Pharmacy</option>
+                        <option>Bachelor of Science in Physical Therapy</option>
+                        <option>Bachelor of Science in Radiologic Technology</option>
+                        <option>Bachelor of Science in Respiratory Therapy</option>
+                        <option>Bachelor of Science in Speech-Language Pathology</option>
+                        <option>Bachelor of Science in Sports Science</option>
+
+                        <option>Bachelor in Secondary Education</option>
+                        <option>Bachelor in Elementary Education</option>
+                        <option>Bachelor in Secondary Education Major in Technology and Livelihood Education</option>
+                        <option>Bachelor in Secondary Education Major in Biological Sciences</option>
+                        <option>Bachelor in Secondary Education Major in English</option>
+                        <option>Bachelor in Secondary Education Major in Filipino</option>
+                        <option>Bachelor in Secondary Education Major in Mathematics</option>
+                        <option>Bachelor in Secondary Education Major in Islamic Studies</option>
+                        <option>Bachelor in Secondary Education Major in Music, Arts, Physical and Health Education</option>
+                        <option>Bachelor in Secondary Education Major in Physical Sciences</option>
+                        <option>Bachelor in Secondary Education Major in Social Studies</option>
+                        <option>Bachelor in Secondary Education Major in Values Education</option>
+                        <option>Bachelor in Elementary Education Major in Preschool Education</option>
+                        <option>Bachelor in Elementary Education Major in Special Education</option>
+                        <option>Bachelor of Library and Information Science in the Philippines</option>
+                        <option>Bachelor of Physical Education</option>
+
+                        <option>Bachelor of Science in Aeronautical Engineering</option>
+                        <option>Bachelor of Science in Ceramic Engineering</option>
+                        <option>Bachelor of Science in Chemical Engineering</option>
+                        <option>Bachelor of Science in Civil Engineering</option>
+                        <option>Bachelor of Science in Computer Engineering</option>
+                        <option>Bachelor of Science in Electrical Engineering</option>
+                        <option>Bachelor of Science in Electronics and Communications Engineering</option>
+                        <option>Bachelor of Science in Geodetic Engineering</option>
+                        <option>Bachelor of Science in Geological Engineering</option>
+                        <option>Bachelor of Science in Industrial Engineering</option>
+                        <option>Bachelor of Science in Marine Engineering</option>
+                        <option>Bachelor of Science in Materials Engineering</option>
+                        <option>Bachelor of Science in Mechanical Engineering</option>
+                        <option>Bachelor of Science in Metallurgical Engineering</option>
+                        <option>Bachelor of Science in Mining Engineering</option>
+                        <option>Bachelor of Science in Petroleum Engineering</option>
+
+                        <option>Bachelor of Science in Sanitary Engineering</option>
+                        <option>Bachelor of Arts in Broadcasting</option>
+                        <option>Bachelor of Arts in Communication</option>
+                        <option>Bachelor of Science in Development Communication</option>
+                        <option>Bachelor of Arts in Journalism</option>
+                        <option>Bachelor of Arts in Mass Communication</option>
+                        <option>Bachelor of Science in Community Development</option>
+                        <option>Bachelor of Science in Customs Administration</option>
+                        <option>Bachelor of Science in Foreign Service</option>
+                        <option>Bachelor of Science in International Studies</option>
+                        <option>Bachelor of Science in Public Safety</option>
+                        <option>Bachelor of Science in Social Work</option>
+                        <option>Bachelor of Science in Marine Transportation</option>
+                        <option>Bachelor of Science in Food Technology</option>
+                        <option>Bachelor of Science in Nutrition and Dietetics</option>
+                        <option>Bachelor of Science in Hospitality Management</option>
+                        <option>Any Course</option>
+                    </select>
+                    @error('education')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>

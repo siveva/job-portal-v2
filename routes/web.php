@@ -82,10 +82,10 @@ Route::middleware(['auth', 'employer'])->group(function () {
     Route::prefix('employer')->group(function(){
         Route::prefix('jobs')->group(function(){
             Route::resource('applications', JobApplicationController::class);
+            Route::get('unQualified', [JobApplicationController::class, 'unQualified'])->name('applications.unQualified');
             Route::get('applications/download/resume/{id}', [JobApplicationController::class, 'downloadResume'])->name('applications.download.resume');
         });
     });
-
 
 });
 

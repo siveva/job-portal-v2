@@ -37,7 +37,8 @@ class EmployerController extends Controller
 
         // Get the count of applicants
         $applicantCount = Application::whereIn('job_listing_id', function ($query) use ($employer) {
-            $query->select('id')->from('job_listings')->where('employer_id', $employer->id);
+            $query->select('id')->from('job_listings')
+            ->where('employer_id', $employer->id);
         })->count();
         
         return view('employers.dashboard',compact('jobCount','applicantCount'));

@@ -23,6 +23,8 @@ class CreateJobListingsTable extends Migration
             $table->enum('job_type', ['part-time', 'full-time', 'freelance', 'internship', 'temporary']);
             $table->text('requirements');
             $table->dateTime('deadline');
+            $table->text('education');
+            $table->text('yrOfexp');
             $table->timestamps();
         });
     }

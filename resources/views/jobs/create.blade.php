@@ -50,6 +50,52 @@
             </div>
 
             <div class="form-group row mb-3">
+                <label for="education" class="col-md-4 col-form-label text-md-right">{{ __('Education') }}</label>
+            
+                <div class="col-md-6">
+                    <select id="education" class="form-control @error('education') is-invalid @enderror" name="education" required>
+                        <option></option>
+                        <option value="0">Elementary level or graduate</option>
+                        <option value="1">Secondary level or graduate</option>
+                        <option value="2">Vocational Course Graduate</option>
+                        <option value="3">College level</option>
+                        <option value="10">Any Bachelors degree holder</option>
+                        <option value="4">Graduate of any IT related course</option>
+                        <option value="5">Graduate of any Arts or Sciences related course</option>
+                        <option value="6">Graduate of any Engineering related course</option>
+                        <option value="7">Graduate of any Business related course</option>
+                        <option value="8">Graduate of any Medicine related course</option>
+                        <option value="9">Graduate of any Education related course</option>
+                    </select>
+                    @error('education')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="yrOfexp" class="col-md-4 col-form-label text-md-right">{{ __('Yrs of relevant experience') }}</label>
+
+                <div class="col-md-6">
+                    <select id="yrOfexp" class="form-control @error('yrOfexp') is-invalid @enderror" name="yrOfexp" required autocomplete="job_type">
+                        <option></option>
+                        <option value="0">None required</option>
+                        <option value="1">1-6 mos</option>
+                        <option value="2">7-12 mos</option>
+                        <option value="3">1-2 yrs</option>
+                        <option value="4">2 yrs and above</option>
+                    </select>
+                    @error('yrOfexp')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
                 <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('Location') }}</label>
 
                 <div class="col-md-6">

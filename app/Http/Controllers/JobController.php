@@ -65,6 +65,8 @@ class JobController extends Controller
                 'job_type' => 'required',
                 'requirements' => 'required',
                 'deadline' => 'required|date',
+                'education' => 'required',
+                'yrOfexp' => 'required',
                 'categories' => 'required|array|min:1', // added categories validation rules
                 'categories.*' => 'exists:categories,id' // added categories validation rules
             ]);
@@ -78,6 +80,8 @@ class JobController extends Controller
             $job->job_type = $validatedData['job_type'];
             $job->requirements = $validatedData['requirements'];
             $job->deadline = $validatedData['deadline'];
+            $job->education = $validatedData['education'];
+            $job->yrOfexp = $validatedData['yrOfexp'];
         
             // Get the authenticated employer and associate the job with them
             // $employer = Auth::user()->employer;
@@ -204,11 +208,51 @@ class JobController extends Controller
             $path = $request->file('resume')->store('resumes');
         }
 
+        if($job->education == "10") {
+            if($request->education >= "4" && $job->yrOfexp == "0") {
+                $shortlisted = "yes";
+            }
+            else if($request->education >= "4" && $request->yrOfexp >= $job->yrOfexp) {
+                $shortlisted = "yes";
+            } 
+            else {
+                $shortlisted = "no";
+            }
+        } 
+        else if($job->education == $request->education) {
+            if($job->yrOfexp == "0") {
+                $shortlisted = "yes";
+            }
+            else if($request->yrOfexp >= $job->yrOfexp) {
+                $shortlisted = "yes";
+            }
+            else {
+                $shortlisted = "no";
+            }
+        }
+        else if($request->education >= $job->education) {
+            if($job->yrOfexp == "0") {
+                $shortlisted = "yes";
+            }
+            else if($request->yrOfexp >= $job->yrOfexp) {
+                $shortlisted = "yes";
+            }
+            else {
+                $shortlisted = "no";
+            }
+        }
+        else {
+            $shortlisted = "no";
+        }
+
         $job->applications()->create([
             'job_seeker_id'    =>  Auth::id(),
             'cover_letter'  =>  $request->letter,
             'resume'  =>  $path,
-            'status'    => 'pending'
+            'status'    => 'pending',
+            'education' => $request->education,
+            'yrOfexp' => $request->yrOfexp,
+            'shortlisted' => $shortlisted
         ]);
 
         return redirect()->route('jobseeker.appliedJobs')->with('success', 'Application was successfully submitted');

@@ -21,6 +21,9 @@ class CreateApplicationsTable extends Migration
             $table->string('resume')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected', 'canceled' ,'scheduled_for_interview'])->default('pending');
             $table->longText('message')->nullable();
+            $table->text('education');
+            $table->text('yrOfexp');
+            $table->text('shortlisted');
             $table->timestamps();
         });
     }

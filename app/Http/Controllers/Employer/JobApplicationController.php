@@ -28,9 +28,26 @@ class JobApplicationController extends Controller
     public function index(Request $request)
     {
         $job = JobListing::find($request->id);
-        $jobApplications = Application::with(['jobSeeker.jobSeeker', 'jobListing'])->where('job_listing_id', $job->id)->get();
-
+        $jobApplications = Application::with(['jobSeeker.jobSeeker', 'jobListing'])
+        ->where('job_listing_id', $job->id)
+        ->where('shortlisted','yes')
+        ->get();
         return view('employers.jobs.applicants.index', compact('job', 'jobApplications'));
+    }
+
+    public function unQualified(Request $request)
+    {
+        $jobId = $request->query('id');
+        $job = JobListing::find($jobId);
+        if (!$job) {
+            // Handle case when job listing is not found
+            abort(404);
+        }
+        $jobApplications = Application::with(['jobSeeker.jobSeeker', 'jobListing'])
+        ->where('job_listing_id', $jobId)
+        ->where('shortlisted','no')
+        ->get();
+        return view('employers.jobs.applicants.unQualified', compact('job', 'jobApplications'));
     }
 
     /**
