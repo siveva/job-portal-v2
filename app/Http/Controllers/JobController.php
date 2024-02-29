@@ -230,7 +230,18 @@ class JobController extends Controller
                 $shortlisted = "no";
             }
         }
-        else if($request->education >= $job->education) {
+        else if($job->education <= "3" && $request->education >= "3") {
+            if($job->yrOfexp == "0") {
+                $shortlisted = "yes";
+            }
+            else if($request->yrOfexp >= $job->yrOfexp) {
+                $shortlisted = "yes";
+            }
+            else {
+                $shortlisted = "no";
+            }
+        }
+        else if($job->education <= "3" && $request->education >= $job->education) {
             if($job->yrOfexp == "0") {
                 $shortlisted = "yes";
             }
