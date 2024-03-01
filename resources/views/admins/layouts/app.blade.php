@@ -11,7 +11,10 @@
         <link href="{{ asset('/public/startboostrap/css/styles.css') }}" rel="stylesheet" />
         @stack('pages-css')
 
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ asset('/public/locals/sweetalert2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/public/locals/dataTables.bootstrap5.min.css') }}">
+
+        {{--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
         
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -21,8 +24,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
 
         {{-- Datatable --}}
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        {{--<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">--}}
 
 
     </head>
@@ -227,8 +230,17 @@
 
 
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        {{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('/public/startboostrap/js/scripts.js') }}"></script>--}}
+
+        <script src="{{ asset('/public/locals/jquery-3.6.0.min.js') }}"></script>
+        <script src="{{ asset('/public/locals/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('/public/locals/all.js') }}"></script>
+        <script src="{{ asset('/public/locals/sweetalert2.min.js') }}"></script>
+        <script src="{{ asset('/public/locals/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('/public/localsdataTables.bootstrap5.min.js') }}"></script>
         <script src="{{ asset('/public/startboostrap/js/scripts.js') }}"></script>
+
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script> --}}
         {{-- <script src="{{ asset('startboostrap/assets/demo/chart-area-demo.js') }}"></script> --}}
         {{-- <script src="{{ asset('startboostrap/assets/demo/chart-bar-demo.js') }}"></script> --}}
