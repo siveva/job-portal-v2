@@ -307,7 +307,7 @@
         <script src="{{ asset('/public/locals/all.js') }}"></script>
         <script src="{{ asset('/public/locals/sweetalert2.min.js') }}"></script>
         <script src="{{ asset('/public/locals/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('/public/localsdataTables.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('/public/locals/dataTables.bootstrap5.min.js') }}"></script>
         <script src="{{ asset('/public/startboostrap/js/scripts.js') }}"></script>
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script> --}}
         {{-- <script src="{{ asset('startboostrap/assets/demo/chart-area-demo.js') }}"></script> --}}

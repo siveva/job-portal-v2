@@ -160,8 +160,5 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
             'update'=>'admin.job-listings.update',
             'destroy'=>'admin.job-listings.destroy',
         ]);
-    
-
-
 
 });
