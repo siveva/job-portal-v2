@@ -36,10 +36,10 @@
             <table class="table table-condensed table-striped data-table" id="dataTable">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Job Title</th>
                         <th>Education</th>
                         <th>Experience</th>
+                        <th>Eligibility</th>
                         <th>Location</th>
                         <th>Salary</th>
                         <th>Employer</th>
@@ -49,41 +49,14 @@
                 </thead>
                 <tbody>
                     @forelse ($jobPosts  as $jobPost)
-                    @switch($jobPost->education)
-                                    @case('0')
-                                        @php $education = "Elementary level or graduate"; @endphp
-                                        @break
-                                    @case('1')
-                                        @php $education = "Secondary level or graduate"; @endphp
-                                        @break
-                                    @case('2')
-                                        @php $education = "Vocational Course Graduate"; @endphp
-                                        @break
-                                    @case('3')
-                                        @php $education = "College level"; @endphp
-                                        @break
-                                    @case('4')
-                                        @php $education = "Graduate of any IT related course"; @endphp
-                                        @break
-                                    @case('5')
-                                        @php $education = "Graduate of any Arts or Sciences related course"; @endphp
-                                        @break
-                                    @case('6')
-                                        @php $education = "Graduate of any Engineering related course"; @endphp
-                                        @break
-                                    @case('7')
-                                        @php $education = "Graduate of any Business related course"; @endphp
-                                        @break
-                                    @case('8')
-                                        @php $education = "Graduate of any Medicine related course"; @endphp
-                                        @break
-                                    @case('9')
-                                        @php $education = "Graduate of any Education related course"; @endphp
-                                        @break 
-                                    @case('10')
-                                        @php $education = "Any Bachelors degree"; @endphp
-                                        @break                        
-                                @endswitch
+                    @php 
+                        $educationString = explode('*', $jobPost->education);
+                        $education = "";
+                        foreach($educationString as $educ){
+                           $education .= $educ.", ";
+                        }
+                        $education = rtrim($education, ", ");
+                    @endphp
                                 @switch($jobPost->yrOfexp)
                                     @case('0')
                                         @php $exp = "None"; @endphp
@@ -101,14 +74,28 @@
                                         @php $exp = "2 yrs and above"; @endphp
                                         @break    
                                 @endswitch
+                                @switch($jobPost->eligibility)
+                                    @case('0')
+                                        @php $el = "None Required"; @endphp
+                                        @break
+                                    @case('1')
+                                        @php $el = "CS Sub-professional"; @endphp
+                                        @break
+                                    @case('2')
+                                        @php $el = "CS Professional"; @endphp
+                                        @break
+                                    @case('3')
+                                        @php $el = "Licensed Professional"; @endphp
+                                        @break  
+                                @endswitch
                         <tr>
-                        <td>{{ $loop->iteration }}</td>
                             <td style="font-size: 12px">{{ $jobPost->title }}</td>
                             <td style="font-size: 12px">{{ $education }}</td>
                             <td style="font-size: 12px">{{ $exp }}</td>
-                            <td>{{ $jobPost->location }}</td>
+                            <td style="font-size: 12px">{{ $el }}</td>
+                            <td style="font-size: 12px">{{ $jobPost->location }}</td>
                             <td style="color: green">{{ number_format($jobPost->salary, 2) }}</td>
-                            <td>{{ $jobPost->employer->employer ? $jobPost->employer->employer->company_name : NULL }}</td>
+                            <td style="font-size: 12px">{{ $jobPost->employer->employer ? $jobPost->employer->employer->company_name : NULL }}</td>
                             <td>{{ date("m-d-Y", strtotime($jobPost->deadline)) }}</td>
                             <td>{{ date("m-d-Y", strtotime($jobPost->created_at)) }}</td>
                         </tr>

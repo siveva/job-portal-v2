@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="{{ asset('/public/css/flaticon.css')}}">
 <link rel="stylesheet" href="{{ asset('/public/css/icomoon.css')}}">
 <link rel="stylesheet" href="{{ asset('/public/css/style.css')}}">
+<link href="{{ asset('/public/locals/select2.min.css') }}"  rel="stylesheet" />
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -111,12 +112,22 @@
 <script src="{{ asset('/public/js/aos.js')}}"></script>
 <script src="{{ asset('/public/js/jquery.animateNumber.min.js')}}"></script>
 <script src="{{ asset('/public/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{ asset('/public/js/jquery.timepicker.min.html')}}"></script>
+{{--<script src="{{ asset('/public/js/jquery.timepicker.min.html')}}"></script>--}}
 <script src="{{ asset('/public/js/scrollax.min.js')}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&amp;sensor=false"></script>
-<script src="{{ asset('/public/js/google-map.js')}}"></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&amp;sensor=false"></script>
+
+
+<script src="{{ asset('/public/js/google-map.js')}}"></script>--}}
 <script src="{{ asset('/public/js/main.js')}}"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7be7a37a3deb0eba","version":"2023.3.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}' crossorigin="anonymous"></script>
+{{--<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7be7a37a3deb0eba","version":"2023.3.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}' crossorigin="anonymous"></script>
+--}}
+<script src="{{ asset('/public/locals/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('/public/locals/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+        $('#educational').select2();
+        });
+    </script>
 </body>
 
 </html>

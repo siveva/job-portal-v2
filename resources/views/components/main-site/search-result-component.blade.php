@@ -35,15 +35,22 @@
                                     @case('temporary')
                                         <span class="badge bg-danger text-white py-2 px-3">Temporary</span>
                                         @break
+                                    @default
+                                    <span class="badge bg-info text-white py-2 px-3">{{ $jobResult->job_type }}</span>
+                                    @break     
                                 @endswitch
                             </div>
                         </div>
-                        <div class="job-post-item-body d-block d-md-flex">
+                        <div class="job-post-item-body">
                             <div class="mr-3"><i class="fas fa-layer-group text-success"></i> <a href="#">{{ $jobResult->employer->employer ? $jobResult->employer->employer->company_name : NULL }}</a></div>
                             <div class="mr-3"><i class="fa fa-map-marker-alt text-success mr-1"></i><span>{{ $jobResult->location }}</span></div>
                             <div>
                                 <i class="far fa-money-bill-alt text-success mr-1"></i><span> &#8369; {{ number_format($jobResult->salary, 2) }}</span>
-                            </div>  
+                            </div> 
+                            <br>
+                            @foreach($$jobResult->categories as $category) 
+                        <span class="badge bg-light py-2 px-3" style="font-size: 10px;">{{ $category->name }}</span>
+                        @endforeach 
                         </div>
         
                     </div>

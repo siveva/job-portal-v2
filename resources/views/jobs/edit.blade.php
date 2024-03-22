@@ -1,7 +1,7 @@
 @extends('employers.layouts.app')
 
 @prepend('pages-css')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('/public/locals/select2.min.css') }}" rel="stylesheet" />
 @endprepend
 
 @section('content')
@@ -155,11 +155,12 @@
     
 @push('pages-script')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{ asset('/public/locals/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('/public/locals/select2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#category').select2();
+        $('#category').select2();
+        $('#education').select2();
         });
     </script>
 

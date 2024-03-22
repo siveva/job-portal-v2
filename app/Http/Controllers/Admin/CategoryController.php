@@ -81,19 +81,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-       /* $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+        // Validate the request
+        $request->validate([
+            'name' => 'required|string|max:255',
         ]);
-    
-        // Update the category
+        $category = Category::findOrFail($id);
+
         $category->update([
             'name' => $request->name,
         ]);
-    
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
-   */
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully');
     }
 
     /**

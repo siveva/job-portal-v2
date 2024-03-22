@@ -14,10 +14,16 @@
 
                   <h2 class="mr-3 text-black h4">{{ $job->title }}</h2>
                   <div class="badge-wrap">
-                    @if ($job->job_type == 'part-time') <span class="bg-primary text-white badge py-2 px-3">Part-time</span> @elseif ($job->job_type == 'full-time') <span class="bg-warning text-white badge py-2 px-3">Full-time</span> @elseif ($job->job_type == 'freelance') <span class="bg-info text-white badge py-2 px-3">Freelance</span> @elseif ($job->job_type == 'internship') <span class="bg-secondary text-white badge py-2 px-3">Internship</span> @elseif ($job->job_type == 'temporary') <span class="bg-danger text-white badge py-2 px-3">Temporary</span> @endif 
+                    @if ($job->job_type == 'part-time') <span class="bg-primary text-white badge py-2 px-3">Part-time</span> 
+                    @elseif ($job->job_type == 'full-time') <span class="bg-warning text-white badge py-2 px-3">Full-time</span> 
+                    @elseif ($job->job_type == 'freelance') <span class="bg-info text-white badge py-2 px-3">Freelance</span> 
+                    @elseif ($job->job_type == 'internship') <span class="bg-secondary text-white badge py-2 px-3">Internship</span> 
+                    @elseif ($job->job_type == 'temporary') <span class="bg-danger text-white badge py-2 px-3">Temporary</span>
+                    @else  <span class="bg-info text-white badge py-2 px-3">{{ $job->job_type }}</span> 
+                    @endif 
                   </div>
                 </div>
-                <div class="job-post-item-body d-block d-md-flex">
+                <div class="job-post-item-body">
                   <div class="mr-3">
                     <i class="fas fa-layer-group text-success"></i>
                     <a href="#">{{ $job->employer->employer ? $job->employer->employer->company_name : NULL }}</a>
@@ -32,89 +38,36 @@
                   <div class="{{ $job->deadline->isToday() || $job->deadline->isPast() ? 'text-danger' : '' }}">
                         <i class="far fa-calendar-alt text-primary me-2 mr-1"></i>Date Line: {{ $job->deadline->format('d M, Y') }}
                   </div>
+                  <div align="right">
+                  @foreach($job->categories as $category) 
+                        <span class="badge bg-light py-2 px-3" style="font-size: 10px;">{{ $category->name }}</span>
+                        @endforeach
+                  </div>      
                 </div>
               </div>
               <div class="mb-1">
-                <h4>Job description</h4>
+                <h5>Job description</h5>
                 <p>{{ $job->description }}</p>
               </div>
+              <hr>
               <div class="mb-1">
-                <h4>Job Type</h4>
+                <h5>Job Type</h5>
                 <p>{{ $job->job_type }}</p>
               </div>
+              <hr>
               <div class="mb-1">
-              @switch($job->education)
-                                    @case('0')
-                                        @php $education = "Elementary level or graduate"; @endphp
-                                        @break
-                                    @case('1')
-                                        @php $education = "Secondary level or graduate"; @endphp
-                                        @break
-                                    @case('2')
-                                        @php $education = "Vocational Course Graduate"; @endphp
-                                        @break
-                                    @case('3')
-                                        @php $education = "College level"; @endphp
-                                        @break
-                                    @case('4')
-                                        @php $education = "Graduate of any IT related course"; @endphp
-                                        @break
-                                    @case('5')
-                                        @php $education = "Graduate of any Arts or Sciences related course"; @endphp
-                                        @break
-                                    @case('6')
-                                        @php $education = "Graduate of any Engineering related course"; @endphp
-                                        @break
-                                    @case('7')
-                                        @php $education = "Graduate of any Business related course"; @endphp
-                                        @break
-                                    @case('8')
-                                        @php $education = "Graduate of any Medicine related course"; @endphp
-                                        @break
-                                    @case('9')
-                                        @php $education = "Graduate of any Education related course"; @endphp
-                                        @break
-                                    @case('11')
-                                        @php $education = "Masters of any Technology and Computer Science Degrees"; @endphp
-                                        @break
-                                    @case('12')
-                                        @php $education = "Masters of any Creative Arts Degrees"; @endphp
-                                        @break
-                                    @case('13')
-                                        @php $education = "Masters of any Engineering and Technology Management Degrees"; @endphp
-                                        @break
-                                    @case('14')
-                                        @php $education = "Masters of any Business Management Degrees"; @endphp
-                                        @break
-                                    @case('15')
-                                        @php $education = "Masters of any Healthcare Degrees"; @endphp
-                                        @break
-                                    @case('16')
-                                        @php $education = "Masters of any Education Degrees"; @endphp
-                                        @break
-                                    @case('17')
-                                        @php $education = "Doctorates in any Computer or IT related Degrees"; @endphp
-                                        @break
-                                    @case('18')
-                                        @php $education = "Doctorates in any Arts or Sciences related Degrees"; @endphp
-                                        @break
-                                    @case('19')
-                                        @php $education = "Doctorates in any Engineering related Degrees"; @endphp
-                                        @break
-                                    @case('20')
-                                        @php $education = "Doctorates in any Business related Degrees"; @endphp
-                                        @break
-                                    @case('21')
-                                        @php $education = "Doctorates in any Medicine related Degrees"; @endphp
-                                        @break
-                                    @case('22')
-                                        @php $education = "Doctorates in any Education related Degrees"; @endphp
-                                        @break                            
-                                @endswitch
-                <h4>Education</h4>
+              @php 
+                        $educationString = explode('*', $job->education);
+                        $education = "";
+                        foreach($educationString as $educ){
+                           $education .= $educ.", ";
+                        }
+                        $education = rtrim($education, ", ");
+                    @endphp
+                <h5>Education</h5>
                 <p>{{ $education }}</p>
               </div>
-
+              <hr>
               <div class="mb-1">
               @switch($job->yrOfexp)
                                     @case('0')
@@ -133,10 +86,10 @@
                                         @php $exp = "2 yrs and above"; @endphp
                                         @break    
                                 @endswitch
-                <h4>Years of Relevant Experience  </h4>
+                <h5>Years of Relevant Experience  </h5>
                 <p>{{ $exp }}</p>
               </div>
-
+              <hr>
               <div class="mb-1">
               @switch($job->eligibility)
                                     @case('0')
@@ -152,12 +105,12 @@
                                         @php $el = "Licensed Professional"; @endphp
                                         @break  
                                 @endswitch
-                <h4>Eligibility  </h4>
+                <h5>Eligibility  </h5>
                 <p>{{ $el }}</p>
               </div>
-
+              <hr>
               <div class="mb-1">
-                <h4>Requirements</h4>
+                <h5>Requirements</h5>
                 <p>{{ $job->requirements }}</p>
               </div>
             </div>
